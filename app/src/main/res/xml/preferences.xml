@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:iconSpaceReserved="false">
+    <PreferenceCategory android:title="Display">
+
+        <SwitchPreferenceCompat
+            android:key="light_switch"
+            android:title="@string/prefs_dark_light_mode"
+            app:summaryOn="@string/prefs_dark_mode_about"
+            app:summaryOff="@string/prefs_light_mode_about" />
+
+        <ListPreference
+            android:key="home_page"
+            android:title="@string/prefs_home_page"
+            android:summary="@string/prefs_home_page_about"
+            android:entries="@array/pref_home_page_entries"
+            android:entryValues="@array/pref_home_page_entries_values"
+            android:defaultValue="Browse"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,48 @@
+
+<resources>
+    <string-array name="pref_home_page_entries">
+        <item>Feeds</item>
+        <item>Profile</item>
+    </string-array>
+
+    <string-array name="pref_home_page_entries_values">
+        <item>Feeds</item>
+        <item>Profile</item>
+    </string-array>
+
+    <string-array name="pond_tab">
+        <item>CAT A</item>
+        <item>CAT B</item>
+        <item>CAT C</item>
+        <item>CAT D</item>
+    </string-array>
+
+    <string-array name="updates_tab">
+        <item>ALL</item>
+        <item>POND</item>
+        <item>PEDIA</item>
+        <item>OTHERS</item>
+    </string-array>
+
+    <string-array name="add_tab">
+        <item>POND</item>
+        <item>FISH</item>
+        <item>FEED</item>
+        <item>HARVEST</item>
+    </string-array>
+
+    <string-array name="explore_tab">
+        <item>FISH</item>
+        <item>FEED</item>
+        <item>DISEASE</item>
+        <item>WATER</item>
+    </string-array>
+
+    <string-array name="more_tab">
+        <item>APPS</item>
+        <item>SETTINGS</item>
+        <item>ABOUT</item>
+        <item>HELP</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">PondPediaView</string>
+
+    <string name="signup">Sign Up</string>
+    <string name="login">Sign In</string>
+    <string name="logout">Logout</string>
+    <string name="login_guest">Sign In as Guest</string>
+    <string name="message_welcome_page">Share your story, share your life!</string>
+    <string name="title_welcome_page">AetherizedStory</string>
+    <string name="title_signup_page">Fill the Registration Data</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="message_login_page">Masukkan dulu datamu ya</string>
+    <string name="title_login_page">Sudah siap untuk upgrade skill?</string>
+    <string name="copyright">Aetherized Apps by Dimas</string>
+    <string name="message_main_page">Selamat Belajar di Dicoding.</string>
+    <string name="greeting">Halo %1$s,</string>
+
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="addstory">Add to Story</string>
+    <string name="addDesc">Add Description</string>
+
+    <string name="unavailable_feature">This feature is currently under development!</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Input Keywords</string>
+    <string name="search_button">Find User</string>
+    <string name="avatar_name">Full Name</string>
+    <string name="avatar_username">Username</string>
+    <string name="avatar_story">Story</string>
+    <string name="story_description">Story Description</string>
+    <string name="story_time">Story Time</string>
+
+    <string name="pond_name">Pond A</string>
+    <string name="pond_fish">African Catfish</string>
+
+    <string name="title1">POND</string>
+    <string name="title2">UPDATE</string>
+    <string name="title3">ADD</string>
+    <string name="title4">EXPLORE</string>
+    <string name="title5">MORE</string>
+
+    <string name="subtitle1">MANAGEMENT</string>
+    <string name="subtitle2">NOTIFICATIONS</string>
+    <string name="subtitle3">NEW POND</string>
+    <string name="subtitle4">FISH ENCYCLOPEDIA</string>
+    <string name="subtitle5">OPTIONS</string>
+
+    <string name="pond_tab1">CATFISH</string>
+    <string name="pond_tab2">NILE TILAPIA</string>
+    <string name="pond_tab3">FISH X</string>
+    <string name="pond_tab4">FISH Y</string>
+
+    <string name="updates_tab1">ALL</string>
+    <string name="updates_tab2">POND</string>
+    <string name="updates_tab3">PEDIA</string>
+    <string name="updates_tab4">OTHERS</string>
+
+    <string name="add_tab1">POND</string>
+    <string name="add_tab2">FISH</string>
+    <string name="add_tab3">FEED</string>
+    <string name="add_tab4">HARVEST</string>
+
+    <string name="explore_tab1">FISH</string>
+    <string name="explore_tab2">FEED</string>
+    <string name="explore_tab3">DISEASE</string>
+    <string name="explore_tab4">WATER</string>
+
+    <string name="more_tab1">APPS</string>
+    <string name="more_tab2">SETTINGS</string>
+    <string name="more_tab3">ABOUT</string>
+    <string name="more_tab4">HELP</string>
+
+    <string name="addFavorites">Add to Favorites</string>
+    <string name="inFavorites">In Favorites</string>
+    <string name="added">Added to Favorites</string>
+    <string name="removed">Removed from Favorites</string>
+    <string name="unremoved">Remove Failed</string>
+
+
+    <string name="prefs_dark_light_mode">Dark/Light Mode</string>
+    <string name="prefs_dark_mode_about">Dark Mode</string>
+    <string name="prefs_light_mode_about">Light Mode</string>
+    <string name="prefs_home_page">Home Page</string>
+    <string name="prefs_home_page_about">Choose the first tab to be displayed</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_menu_item1">Settings</string>
+
+
+    <string name="name">Pond Name</string>
+    <string name="length">Length (Meter)</string>
+    <string name="width">Width (Meter)</string>
+    <string name="depth">Depth (Meter)</string>
+    <string name="temperature">Temperature (Celsius)</string>
+    <string name="turbidity">Turbidity</string>
+    <string name="oxygen">Dissolved Oxygen (mg/L)</string>
+    <string name="ph">pH</string>
+    <string name="ammonia">Ammonia (mg N/L)</string>
+    <string name="nitrate">Nitrate (mg/L)</string>
+
+
+    <string name="fish_type">Fish Type</string>
+    <string name="fish_amount">Fish Amount / Pond</string>
+    <string name="fish_harvest">Fish Weight for Harvest (g)</string>
+
+    <string name="feed_percentage">Feed Percentage / Fish Weight (%)</string>
+    <string name="feed_protein">Protein Percentage (%)</string>
+    <string name="feed_lipid">Lipid Percentage (%)</string>
+    <string name="feed_carbohydrate">Carbohydrate Percentage (%)</string>
+    <string name="feed_others">Others Percentage (%)</string>
+    <string name="feed_frequency">Feeding Times / Day</string>
+
+
+    <string name="submit">Submit</string>
+    <string name="create">Create</string>
+</resources>

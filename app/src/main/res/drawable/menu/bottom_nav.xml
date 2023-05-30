@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/botNavTitle1"
+        android:id="@+id/storyFeeds"
+        android:icon="@drawable/ic_nav_library_0"/>
+
+    <item android:title="@string/botNavTitle2"
+        android:id="@+id/addStory"
+        android:icon="@drawable/ic_nav_browse_0"/>
+
+    <item android:title="@string/botNavTitle3"
+        android:id="@+id/myProfile"
+        android:icon="@drawable/ic_nav_more_0"/>
+</menu>
