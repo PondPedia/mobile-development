@@ -3,6 +3,7 @@ package com.aetherized.view.pondpediaview.data.local.room.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.aetherized.view.pondpediaview.data.local.entity.PondEntity
+import com.aetherized.view.pondpediaview.data.model.PondWithUpdates
 
 @Dao
 interface PondDao {
@@ -23,4 +24,7 @@ interface PondDao {
 
     @Query("SELECT * from ponds ORDER BY id ASC")
     fun getAllPonds(): LiveData<List<PondEntity>>
+    @Transaction
+    @Query("SELECT * FROM ponds WHERE id = :pondId")
+    fun getPondWithUpdates(pondId: Int): LiveData<PondWithUpdates>
 }

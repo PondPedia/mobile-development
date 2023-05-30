@@ -2,32 +2,28 @@ package com.aetherized.view.pondpediaview.data.local.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.aetherized.view.pondpediaview.data.model.PondWater
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "updates")
-data class UpdatesEntity(
+@Entity(tableName = "pond_logs")
+data class PondLogEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int = 0,
-    
+
     @ColumnInfo(name = "pond_id")
     val pondId: Int,
 
-    @ColumnInfo(name = "updates_category")
-    val updatesCategory: String,
+    @ColumnInfo(name = "action")
+    val action: String? = null,
 
-    @ColumnInfo(name = "updates_name")
-    val updatesName: String,
-
-    @ColumnInfo(name = "updates_content")
-    val updatesContent: String? = null,
-
-    @ColumnInfo(name = "update_details")
-    val updatesDetails: String? = null,
+    @Embedded(prefix = "pond_water_")
+    val pondWater: PondWater,
 
     @ColumnInfo(name = "timestamp")
-    val timestamp: String
+    val timestamp: String? = null
 ) : Parcelable

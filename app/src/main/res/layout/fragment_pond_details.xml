@@ -63,11 +63,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fish_name_tv" />
     <Button
-        android:id="@+id/favorite_button"
+        android:id="@+id/analytics_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_favorite_false"
-        android:text="@string/addFavorites"
+        android:text="@string/analytics"
         android:textColor="@color/black"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -84,29 +83,40 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorite_button">
+        app:layout_constraintTop_toBottomOf="@+id/analytics_button">
         <TableRow>
             <TextView
-                android:text="@string/avatar_followers"
+                android:text="@string/length"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textColor="@color/black"/>
             <TextView
-                android:text="@string/avatar_following"
+                android:text="@string/width"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black"/>
+            <TextView
+                android:text="@string/depth"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textColor="@color/black"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:id="@+id/followers_tv"
-                android:text="@string/avatar_followers_count"
+                android:id="@+id/left_tv"
+                android:text="@string/dummy_number_a"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textColor="@color/black"/>
             <TextView
-                android:id="@+id/following_tv"
-                android:text="@string/avatar_following_count"
+                android:id="@+id/middle_tv"
+                android:text="@string/dummy_number_a"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/right_tv"
+                android:text="@string/dummy_number_a"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textColor="@color/black"/>
@@ -119,7 +129,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/teal_200"
-    android:contentDescription="@string/avatar_description"
+    android:contentDescription="@string/story_description"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/profile_layout"

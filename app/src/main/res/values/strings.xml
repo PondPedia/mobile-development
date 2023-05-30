@@ -71,6 +71,12 @@
     <string name="more_tab3">ABOUT</string>
     <string name="more_tab4">HELP</string>
 
+
+    <string name="details_tab1">FISH</string>
+    <string name="details_tab2">FEED</string>
+    <string name="details_tab3">WATER</string>
+    <string name="details_tab4">ANALYTICS</string>
+
     <string name="addFavorites">Add to Favorites</string>
     <string name="inFavorites">In Favorites</string>
     <string name="added">Added to Favorites</string>
@@ -114,4 +120,12 @@
 
     <string name="submit">Submit</string>
     <string name="create">Create</string>
+    <string name="analytics">Analytics</string>
+
+
+    <string name="dummy_number_a">7</string>
+    <string name="dummy_number_b">17</string>
+    <string name="dummy_number_c">127</string>
+    <string name="dummy_number_d">1237</string>
+
 </resources>

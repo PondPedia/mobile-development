@@ -1,13 +1,12 @@
 package com.aetherized.view.pondpediaview.data.model
 
 import android.os.Parcelable
-import androidx.room.Entity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PondFish(
     var fid: Int,
-    var name: String?,
-    var amount: Float?,
-    var weight: Float?,
+    var name: String? = null,
+    var amount: Float? = null,
+    var weight: Float? = null,
 ) : Parcelable

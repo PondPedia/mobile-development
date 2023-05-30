@@ -4,6 +4,7 @@ import android.content.Context
 import com.aetherized.view.pondpediaview.data.local.room.database.PondDatabase
 import com.aetherized.view.pondpediaview.data.local.room.database.UpdatesDatabase
 import com.aetherized.view.pondpediaview.data.remote.retrofit.ApiConfig
+import com.aetherized.view.pondpediaview.data.repository.PondLogRepository
 import com.aetherized.view.pondpediaview.data.repository.PondRepository
 import com.aetherized.view.pondpediaview.data.repository.UpdatesRepository
 import com.aetherized.view.pondpediaview.utils.AppExecutors
@@ -15,6 +16,13 @@ object Injection {
         val dao = database.pondDao()
         val appExecutors = AppExecutors()
         return PondRepository(apiService, dao, appExecutors)
+    }
+    fun providePondLogRepository(context: Context): PondLogRepository {
+        val apiService = ApiConfig.getApiService()
+        val database = PondDatabase.getDatabase(context)
+        val dao = database.pondLogDao()
+        val appExecutors = AppExecutors()
+        return PondLogRepository(apiService, dao, appExecutors)
     }
     fun provideUpdatesRepository(context: Context): UpdatesRepository {
         val apiService = ApiConfig.getApiService()

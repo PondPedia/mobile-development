@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aetherized.view.pondpediaview.data.di.Injection
+import com.aetherized.view.pondpediaview.data.repository.PondLogRepository
 import com.aetherized.view.pondpediaview.data.repository.PondRepository
 import com.aetherized.view.pondpediaview.data.repository.UpdatesRepository
 import com.aetherized.view.pondpediaview.ui.authenticated.home.HomeViewModel
@@ -15,7 +16,8 @@ import com.aetherized.view.pondpediaview.ui.unauthenticated.register.RegisterVie
 class ViewModelFactory private constructor(
     private val pref: CustomPreference,
     private val pondRepository: PondRepository,
-    private val updatesRepository: UpdatesRepository
+    private val pondLogRepository: PondLogRepository,
+    private val updatesRepository: UpdatesRepository,
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -50,7 +52,8 @@ class ViewModelFactory private constructor(
                 instance ?: ViewModelFactory(
                     CustomPreference.getInstance(context),
                     Injection.providePondRepository(context),
-                    Injection.provideUpdatesRepository(context)
+                    Injection.providePondLogRepository(context),
+                    Injection.provideUpdatesRepository(context),
                 )
             }.also { instance = it }
     }

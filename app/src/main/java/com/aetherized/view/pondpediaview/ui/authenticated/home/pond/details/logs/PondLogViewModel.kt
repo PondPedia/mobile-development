@@ -1,13 +1,14 @@
-package com.aetherized.view.pondpediaview.ui.authenticated.home.pond
+package com.aetherized.view.pondpediaview.ui.authenticated.home.pond.details.logs
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aetherized.view.pondpediaview.data.local.entity.PondEntity
-import com.aetherized.view.pondpediaview.data.repository.PondRepository
+import com.aetherized.view.pondpediaview.data.local.entity.PondLogEntity
+import com.aetherized.view.pondpediaview.data.repository.PondLogRepository
 import com.aetherized.view.pondpediaview.utils.helper.CustomPreference
 
-class PondViewModel(private val pref: CustomPreference, val repository: PondRepository) : ViewModel() {
+class PondLogViewModel (private val pref: CustomPreference, val repository: PondLogRepository) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
@@ -16,20 +17,18 @@ class PondViewModel(private val pref: CustomPreference, val repository: PondRepo
     val errorMessage: LiveData<String> get() = _errorMessage
 
 
+
     init {
         _isLoading.postValue(true)
     }
 
-    fun getAllPonds(): LiveData<List<PondEntity>> {
+    fun getAllPondLogs(): LiveData<List<PondLogEntity>> {
         _isLoading.postValue(false)
-        return repository.allPonds
+        return repository.allPondLogs
     }
 
-    suspend fun insertPond(pond: PondEntity): Long {
-        return repository.insertPond(pond)
+    suspend fun insertPondLog(pondLog: PondLogEntity): Long {
+        return repository.insertPondLog(pondLog)
     }
 
-    suspend fun updatePond(pond: PondEntity) {
-        repository.updatePond(pond)
-    }
 }

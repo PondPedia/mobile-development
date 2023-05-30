@@ -12,10 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.aetherized.view.pondpediaview.R
 import com.aetherized.view.pondpediaview.data.local.entity.PondEntity
+import com.aetherized.view.pondpediaview.data.local.entity.PondLogEntity
 import com.aetherized.view.pondpediaview.data.model.PondFeed
 import com.aetherized.view.pondpediaview.data.model.PondFish
 import com.aetherized.view.pondpediaview.data.model.PondWater
 import com.aetherized.view.pondpediaview.ui.authenticated.home.pond.PondViewModel
+import com.aetherized.view.pondpediaview.ui.authenticated.home.pond.details.logs.PondLogViewModel
 import com.aetherized.view.pondpediaview.utils.customview.MyButton
 import com.aetherized.view.pondpediaview.utils.helper.ResetListener
 import com.aetherized.view.pondpediaview.utils.helper.ViewModelFactory
@@ -27,6 +29,7 @@ class AddFragmentD : Fragment() {
 
     private val viewModelFactory by lazy { ViewModelFactory.getInstance(requireContext()) }
     private val pondViewModel by viewModels<PondViewModel> { viewModelFactory }
+    private val pondLogViewModel by viewModels<PondLogViewModel> { viewModelFactory }
 
     private lateinit var createButton: MyButton
 
@@ -71,8 +74,8 @@ class AddFragmentD : Fragment() {
     }
 
     private suspend fun savePondData() {
+        val currentTimeMillis = System.currentTimeMillis()
         val pond = PondEntity(
-            id = 0,
             pondName = addViewModel.pondName ?: "",
             pondLength = addViewModel.pondLength ?: 0f,
             pondWidth = addViewModel.pondWidth ?: 0f,
@@ -80,11 +83,18 @@ class AddFragmentD : Fragment() {
             pondFish = addViewModel.pondFish ?: PondFish(0,"", 0f, 0f),
             pondFeed = addViewModel.pondFeed ?: PondFeed("",0f, 0f, 0f, 0f, 0f, 0),
             pondWater = addViewModel.pondWater ?: PondWater(0f, 0f, 0f, 0f, 0f, 0f),
-            createdAt = null,
+            createdAt = currentTimeMillis.toString(),
             updatedAt = null
         )
-
         pondViewModel.insertPond(pond)
+        val pondLog = PondLogEntity (
+            pondId = pond.id,
+            action = "Pond Created",
+            pondWater = addViewModel.pondWater ?: PondWater(0f, 0f, 0f, 0f, 0f, 0f),
+            timestamp = null,
+        )
+
+        pondLogViewModel.insertPondLog(pondLog)
     }
 
     private fun initializeValue() {
@@ -148,8 +158,9 @@ class AddFragmentD : Fragment() {
             (addViewModel.pondDataFilled) && (addViewModel.fishDataFilled) && (addViewModel.feedDataFilled))
 
     private fun setMyButtonEnable() {
+        val create = "Create Pond!"
         if (dataIsFilled()) {
-            createButton.text = "Create Pond!"
+            createButton.text = create
         }
     }
 
