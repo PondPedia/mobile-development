@@ -1,4 +1,4 @@
-package com.aetherized.view.pondpediaview.ui.authenticated.home.pond.details
+package com.aetherized.view.pondpediaview.ui.authenticated.pond.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

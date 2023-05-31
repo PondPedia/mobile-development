@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".ui.authenticated.home.pond.details.PondDetailsFragment">
+    tools:context=".ui.authenticated.pond.details.PondDetailsFragment">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/profile_layout"

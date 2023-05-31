@@ -8,5 +8,7 @@ data class PondFish(
     var fid: Int,
     var name: String? = null,
     var amount: Float? = null,
-    var weight: Float? = null,
+    var harvestWeight: Float? = null,
+    var currentWeight: Float? = null,
+    var currentLength: Float? = null,
 ) : Parcelable

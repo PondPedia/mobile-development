@@ -9,6 +9,7 @@ import com.aetherized.view.pondpediaview.data.repository.PondRepository
 import com.aetherized.view.pondpediaview.data.repository.UpdatesRepository
 import com.aetherized.view.pondpediaview.ui.authenticated.home.HomeViewModel
 import com.aetherized.view.pondpediaview.ui.authenticated.home.pond.PondViewModel
+import com.aetherized.view.pondpediaview.ui.authenticated.pond.logs.PondLogViewModel
 import com.aetherized.view.pondpediaview.ui.authenticated.settings.SettingsViewModel
 import com.aetherized.view.pondpediaview.ui.unauthenticated.main.MainViewModel
 import com.aetherized.view.pondpediaview.ui.unauthenticated.login.LoginViewModel
@@ -39,6 +40,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(PondViewModel::class.java) -> {
                 PondViewModel(pref, pondRepository) as T
+            }
+            modelClass.isAssignableFrom(PondLogViewModel::class.java) -> {
+                PondLogViewModel(pref, pondLogRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

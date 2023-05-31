@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.authenticated.home.pond.details.PondDetailsWaterFragment">
+    tools:context=".ui.authenticated.pond.details.PondDetailsWaterFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

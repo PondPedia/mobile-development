@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.aetherized.view.pondpediaview.data.local.entity.PondEntity
 import com.aetherized.view.pondpediaview.data.local.entity.PondLogEntity
 import com.aetherized.view.pondpediaview.data.local.entity.UpdatesEntity
@@ -18,15 +20,15 @@ abstract class PondDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: PondDatabase? = null
-
         @JvmStatic
         fun getDatabase(context: Context): PondDatabase =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
                     PondDatabase::class.java,
-                    "pond.database"
-                ).build()
+                    "pondss.db"
+                )
+                .build()
             }
     }
 }

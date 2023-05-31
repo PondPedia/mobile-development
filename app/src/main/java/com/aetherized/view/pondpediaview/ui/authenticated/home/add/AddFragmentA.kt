@@ -85,7 +85,7 @@ class AddFragmentA : Fragment() {
             submitButton.text = "Next Section!"
         }
         insertValue()
-        Log.d("FragmentD", dataIsFilled().toString())
+        Log.d("FragmentA", dataIsFilled().toString())
     }
 
     private fun nextSection() {

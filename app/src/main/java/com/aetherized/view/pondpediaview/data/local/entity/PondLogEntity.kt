@@ -21,8 +21,8 @@ data class PondLogEntity(
     @ColumnInfo(name = "action")
     val action: String? = null,
 
-    @Embedded(prefix = "pond_water_")
-    val pondWater: PondWater,
+    @Embedded(prefix = "pond_")
+    val pond: PondEntity,
 
     @ColumnInfo(name = "timestamp")
     val timestamp: String? = null

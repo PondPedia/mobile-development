@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.aetherized.view.pondpediaview.R
 import com.aetherized.view.pondpediaview.data.local.entity.PondEntity
-import com.aetherized.view.pondpediaview.ui.authenticated.home.pond.details.PondDetailsFragment
+import com.aetherized.view.pondpediaview.ui.authenticated.pond.details.PondDetailsFragment
 import com.aetherized.view.pondpediaview.utils.helper.Constants
 import com.aetherized.view.pondpediaview.utils.helper.PondsDiffCallback
 import com.bumptech.glide.Glide

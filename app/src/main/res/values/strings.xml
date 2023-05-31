@@ -46,6 +46,9 @@
     <string name="subtitle4">FISH ENCYCLOPEDIA</string>
     <string name="subtitle5">OPTIONS</string>
 
+
+    <string name="title1_update">POND UPDATE</string>
+
     <string name="pond_tab1">CATFISH</string>
     <string name="pond_tab2">NILE TILAPIA</string>
     <string name="pond_tab3">FISH X</string>
@@ -109,6 +112,7 @@
     <string name="fish_type">Fish Type</string>
     <string name="fish_amount">Fish Amount / Pond</string>
     <string name="fish_harvest">Fish Weight for Harvest (g)</string>
+    <string name="fish_weight">Fish Current Weight (cm)</string>
 
     <string name="feed_percentage">Feed Percentage / Fish Weight (%)</string>
     <string name="feed_protein">Protein Percentage (%)</string>
