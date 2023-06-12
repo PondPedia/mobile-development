@@ -28,7 +28,7 @@ interface PondDao {
     fun deleteAllPonds()
 
     @Query("SELECT * from ponds")
-    fun getAllPonds(): LiveData<List<PondEntity>>
+    fun getAllPonds(): List<PondEntity>
 
     @Query("SELECT * FROM ponds WHERE pId = :pondId")
     fun getPondById(pondId: Int): LiveData<PondEntity>

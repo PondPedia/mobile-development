@@ -1,13 +1,6 @@
-package com.aetherized.compose.pondpedia.domain.models.pond
+package com.aetherized.compose.pondpedia.domain.model.pond
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.aetherized.compose.pondpedia.domain.models.pond.PondFeed
-import com.aetherized.compose.pondpedia.domain.models.pond.PondFish
-import com.aetherized.compose.pondpedia.domain.models.pond.PondWater
 import kotlinx.parcelize.Parcelize
 import java.time.Instant
 
@@ -23,6 +16,8 @@ data class Pond(
 
     val pondDepth: Float,
 
+    val pondImageUrl: String? = null,
+
     val pondFish: PondFish,
 
     val pondFeed: PondFeed,
@@ -32,6 +27,20 @@ data class Pond(
     val createdAt: String? = Instant.now().toString(),
 
     val updatedAt: String? = Instant.now().toString(),
-
-    val pondImageUrl: String? = null,
 ) : Parcelable
+
+val dummyPondA = Pond(
+    1,
+    "Pond Dummy A",
+    10f,
+    10f,
+    2f,
+    "www.example.com/images/1",
+    PondFish(
+        1,
+    ),
+    PondFeed(),
+    PondWater(),
+    createdAt = null,
+    updatedAt = null,
+)

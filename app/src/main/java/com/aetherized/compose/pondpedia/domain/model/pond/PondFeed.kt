@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.domain.models.pond
+package com.aetherized.compose.pondpedia.domain.model.pond
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

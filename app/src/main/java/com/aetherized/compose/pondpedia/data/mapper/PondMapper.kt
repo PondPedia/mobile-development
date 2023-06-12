@@ -1,7 +1,7 @@
 package com.aetherized.compose.pondpedia.data.mapper
 
 import com.aetherized.compose.pondpedia.data.local.entity.PondEntity
-import com.aetherized.compose.pondpedia.domain.models.pond.Pond
+import com.aetherized.compose.pondpedia.domain.model.pond.Pond
 
 fun PondEntity.toPond(): Pond {
     return Pond(

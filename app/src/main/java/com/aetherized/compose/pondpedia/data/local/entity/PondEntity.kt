@@ -5,9 +5,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.aetherized.compose.pondpedia.domain.models.pond.PondFeed
-import com.aetherized.compose.pondpedia.domain.models.pond.PondFish
-import com.aetherized.compose.pondpedia.domain.models.pond.PondWater
+import com.aetherized.compose.pondpedia.domain.model.pond.PondFeed
+import com.aetherized.compose.pondpedia.domain.model.pond.PondFish
+import com.aetherized.compose.pondpedia.domain.model.pond.PondWater
 import kotlinx.parcelize.Parcelize
 import java.time.Instant
 

@@ -10,7 +10,7 @@ import com.aetherized.compose.pondpedia.data.local.entity.PondEntity
 import com.aetherized.compose.pondpedia.data.local.entity.PondLogEntity
 
 @Database(
-    entities = [PondEntity::class, PondLogEntity::class], version = 1, exportSchema = true
+    entities = [PondEntity::class, PondLogEntity::class], version = 1, exportSchema = false
 )
 abstract class PondDatabase : RoomDatabase() {
 
