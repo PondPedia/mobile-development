@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.presentation.components.ponds
+package com.aetherized.compose.pondpedia.presentation.components.home.ponds
 
 import com.aetherized.compose.pondpedia.domain.model.pond.Pond
 

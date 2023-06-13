@@ -1,29 +1,21 @@
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
-    id 'com.google.devtools.ksp' version '1.7.20-1.0.8'
+    id 'com.google.devtools.ksp' version '1.8.22-1.0.11'
 }
 
-kotlin {
-    sourceSets {
-        debug {
-            kotlin.srcDir("build/generated/ksp/debug/kotlin")
-        }
-        release {
-            kotlin.srcDir("build/generated/ksp/release/kotlin")
-        }
-    }
-}
 android {
     namespace 'com.aetherized.compose.pondpedia'
     compileSdk 33
 
     defaultConfig {
         applicationId "com.aetherized.compose.pondpedia"
-        minSdk 28
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -41,7 +33,6 @@ android {
         }
     }
     compileOptions {
-        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -52,7 +43,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.3.2'
+        kotlinCompilerExtensionVersion '1.4.7'
     }
     packagingOptions {
         resources {
@@ -62,73 +53,74 @@ android {
 }
 
 dependencies {
-//    Basic
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.21'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.21'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.21"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.21"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21"
+    implementation "com.google.devtools.ksp:symbol-processing-api:$ksp_version"
 
     implementation 'androidx.core:core-ktx:1.10.1'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.material3:material3:1.1.0"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-compose:1.7.2'
+    implementation "androidx.compose.ui:ui:$compose_ui_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
+    implementation 'androidx.compose.material:material:1.4.3'
+    implementation "androidx.compose.material3:material3:1.1.0"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
-//    Compose Dependencies
+    // Compose Dependencies
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
-    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_ui_version"
     implementation "com.google.accompanist:accompanist-flowlayout:0.17.0"
     implementation 'androidx.paging:paging-compose:1.0.0-alpha20'
     implementation 'androidx.activity:activity-compose:1.7.2'
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
+    implementation "androidx.navigation:navigation-compose:2.6.0"
     implementation "com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha"
 
-//    Compose Nav Destinations
+    // Compose Nav Destinations
     implementation 'io.github.raamcosta.compose-destinations:core:1.1.2-beta'
     ksp 'io.github.raamcosta.compose-destinations:ksp:1.1.2-beta'
 
-//    Coil
-    implementation "io.coil-kt:coil-compose:2.2.0"
+    // Coil
+    implementation "io.coil-kt:coil-compose:2.2.2"
 
-//    Dagger - Hilt
-    implementation "com.google.dagger:hilt-android:2.41"
+    // Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:2.42"
     kapt "com.google.dagger:hilt-android-compiler:2.40.5"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
     kapt "androidx.hilt:hilt-compiler:1.0.0"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
-//    OpenCSV
+    // OpenCSV
     implementation 'com.opencsv:opencsv:5.5.2'
 
-//    DataStore
+    // DataStore
     implementation "androidx.preference:preference-ktx:1.2.0"
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     implementation "androidx.datastore:datastore-preferences-core:1.0.0"
 
-//    Room
+    // Room
     implementation "androidx.room:room-runtime:2.5.1"
     kapt "androidx.room:room-compiler:2.5.1"
-//    Kotlin Extensions and Coroutines support for Room
+
+    // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.5.1"
 
-//    Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
-
-//    Ktor
-//    implementation "io.ktor:ktor-client-core:$ktor_version"
-//    implementation "io.ktor:ktor-client-android:$ktor_version"
-//    implementation "io.ktor:ktor-client-serialization:$ktor_version"
-//    implementation "io.ktor:ktor-client-logging:$ktor_version"
-//    implementation "ch.qos.logback:logback-classic:1.2.3"
-
-
-
 }

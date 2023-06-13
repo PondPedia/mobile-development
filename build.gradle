@@ -2,23 +2,24 @@
 
 buildscript {
     ext {
-        compose_version = "1.4.3"
-        retrofit_version = "2.9.0"
-        ktor_version = "1.6.3"
+        compose_ui_version = '1.4.3'
+        ksp_version = "1.8.10-1.0.9"
+        kotlin_version = '1.8.21'
+    }
+    repositories {
+        google()
+        mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:2.40.5"
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.google.gms:google-services:4.3.15'
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.42"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
-}
-
+}// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id 'com.android.application' version '8.0.2' apply false
-    id 'com.android.library' version '8.0.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
+    id 'com.android.application' version '7.4.0' apply false
+    id 'com.android.library' version '7.4.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.21' apply false
 }
 
 allprojects {

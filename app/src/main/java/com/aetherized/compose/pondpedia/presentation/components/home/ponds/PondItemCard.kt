@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.presentation.components.ponds
+package com.aetherized.compose.pondpedia.presentation.components.home.ponds
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
