@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">PondPedia</string>
     <string name="web_client_id">973580810637-lpcphjcuqlggh493dg2nlrcd4741bfrp.apps.googleusercontent.com</string>
+
+    <string name="signin">Masuk</string>
+    <string name="signup">Daftar</string>
+    <string name="login_guest">Masuk tanpa Akun</string>
+    <string name="login_google">Akun Google</string>
+    <string name="logout">Logout</string>
+    <string name="message_welcome_page">Memajukan praktik akuakultur!</string>
+    <string name="title_welcome_page">PondPedia</string>
+    <string name="title_signup_page">Masukkan Data Registrasi</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="message_login_page">Masukkan data terlebih dahulu</string>
+    <string name="title_login_page">Sudah siap untuk meningkatkan kualitas akuakultur?</string>
+    <string name="copyright">PondPedia™</string>
+    <string name="message_main_page">Selamat Berjuang.</string>
+    <string name="title_activity_home">HomeActivity</string>
 </resources>

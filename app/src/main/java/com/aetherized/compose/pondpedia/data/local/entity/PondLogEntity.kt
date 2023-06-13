@@ -29,9 +29,6 @@ data class PondLogEntity(
     @ColumnInfo(name = "pond_id")
     val pondId: Int,
 
-    @Embedded(prefix = "old_")
-    val oldPond: PondEntity,
-
     @Embedded(prefix = "new_")
     val newPond: PondEntity,
 
