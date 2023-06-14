@@ -14,6 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.aetherized.compose.pondpedia.presentation.authentication.components.SignInState
+import com.aetherized.compose.pondpedia.presentation.authentication.components.UserData
 import com.aetherized.compose.pondpedia.presentation.home.components.BottomNavItem
 import com.aetherized.compose.pondpedia.presentation.home.components.BottomNavigationBar
 import com.aetherized.compose.pondpedia.presentation.home.components.TabScreen
@@ -22,7 +24,7 @@ import com.aetherized.compose.pondpedia.presentation.ui.theme.PondPediaCustomThe
 
 val bottomNavItems = listOf(
     BottomNavItem.Ponds,
-    BottomNavItem.Updates,
+    BottomNavItem.History,
     BottomNavItem.Create,
     BottomNavItem.Explore,
     BottomNavItem.More
@@ -30,7 +32,10 @@ val bottomNavItems = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    userData: UserData?,
+    onSignOut: () -> Unit
+) {
     PondPediaCustomTheme(darkTheme = true) {
         var selectedNavItem by remember { mutableStateOf(BottomNavItem.Ponds) }
         Scaffold(
@@ -54,7 +59,11 @@ fun HomeScreen() {
             Box(
                 Modifier.padding(innerPadding)
             ) {
-                TabScreen(navItem = selectedNavItem)
+                TabScreen(
+                    navItem = selectedNavItem,
+                    userData = userData,
+                    onSignOut = onSignOut
+                )
             }
         }
     }
@@ -63,5 +72,5 @@ fun HomeScreen() {
 @Preview
 @Composable
 fun DefaultPreview() {
-    HomeScreen()
+    HomeScreen(userData = null, onSignOut = {})
 }

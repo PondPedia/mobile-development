@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.presentation.home.updates.screens
+package com.aetherized.compose.pondpedia.presentation.home.history.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,10 +10,10 @@ import androidx.compose.ui.unit.dp
 import com.aetherized.compose.pondpedia.presentation.home.components.BottomNavItem
 import com.aetherized.compose.pondpedia.presentation.home.components.TabScreen
 
-private val selectedNavItem = BottomNavItem.Updates
+private val selectedNavItem = BottomNavItem.History
 
 @Composable
-fun UpdatesScreenA() {
+fun HistoryScreenA() {
     Column {
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = selectedNavItem.title)
@@ -21,7 +21,7 @@ fun UpdatesScreenA() {
 }
 
 @Composable
-fun UpdatesScreenB() {
+fun HistoryScreenB() {
     Column {
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = selectedNavItem.title)
@@ -29,7 +29,7 @@ fun UpdatesScreenB() {
 }
 
 @Composable
-fun UpdatesScreenC() {
+fun HistoryScreenC() {
     Column {
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = selectedNavItem.title)
@@ -37,7 +37,7 @@ fun UpdatesScreenC() {
 }
 
 @Composable
-fun UpdatesScreenD() {
+fun HistoryScreenD() {
     Column {
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = selectedNavItem.title)

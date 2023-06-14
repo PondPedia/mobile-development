@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.presentation.authentication.sign_in
+package com.aetherized.compose.pondpedia.presentation.authentication.components
 
 data class SignInResult(
     val data: UserData?,

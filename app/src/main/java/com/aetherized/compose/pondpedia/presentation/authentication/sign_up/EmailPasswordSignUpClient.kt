@@ -4,7 +4,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.cancellation.CancellationException
-import com.aetherized.compose.pondpedia.presentation.authentication.sign_in.UserData
+import com.aetherized.compose.pondpedia.presentation.authentication.components.UserData
 
 class EmailPasswordSignUpClient {
     private val auth = Firebase.auth
@@ -17,7 +17,8 @@ class EmailPasswordSignUpClient {
                     UserData(
                         userId = uid,
                         username = displayName,
-                        profilePictureUrl = photoUrl?.toString()
+                        pictureUrl = photoUrl?.toString(),
+                        userEmail = email
                     )
                 },
                 errorMessage = null

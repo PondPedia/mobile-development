@@ -19,13 +19,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.aetherized.compose.pondpedia.presentation.authentication.sign_in.UserData
+import com.aetherized.compose.pondpedia.R
+import com.aetherized.compose.pondpedia.presentation.authentication.components.UserData
 import com.aetherized.compose.pondpedia.presentation.home.components.BottomNavItem
-import com.aetherized.compose.pondpedia.presentation.home.components.TabScreen
 
 private val selectedNavItem = BottomNavItem.More
+
 @Composable
-fun ProfileScreen(
+fun MoreScreenA(
     userData: UserData?,
     onSignOut: () -> Unit
 ) {
@@ -34,37 +35,62 @@ fun ProfileScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if(userData?.profilePictureUrl != null) {
+        if (userData != null) {
             AsyncImage(
-                model = userData.profilePictureUrl,
+                model = if(userData.pictureUrl != "GUEST") userData.pictureUrl else R.drawable.pondpedia_1,
                 contentDescription = "Profile picture",
                 modifier = Modifier
                     .size(150.dp)
                     .clip(CircleShape),
                 contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.height(16.dp))
+        } else {
+            AsyncImage(
+                model = R.drawable.pondpedia_1,
+                contentDescription = "Profile picture",
+                modifier = Modifier
+                    .size(150.dp)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
         }
-        if(userData?.username != null) {
+        Spacer(modifier = Modifier.height(16.dp))
+        if (userData != null) {
             Text(
-                text = userData.username,
+                text = userData.username!!,
                 textAlign = TextAlign.Center,
-                fontSize = 36.sp,
+                fontSize = 24.sp,
                 fontWeight = FontWeight.SemiBold
             )
-            Spacer(modifier = Modifier.height(16.dp))
+        } else {
+            Text(
+                text = "Guest",
+                textAlign = TextAlign.Center,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.SemiBold
+            )
         }
-        Button(onClick = onSignOut) {
+        Spacer(modifier = Modifier.height(16.dp))
+        if (userData != null) {
+            Text(
+                text = userData.userEmail!!,
+                textAlign = TextAlign.Center,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+        } else {
+
+            Text(
+                text =  "Guest",
+                textAlign = TextAlign.Center,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = {onSignOut}) {
             Text(text = "Sign out")
         }
-    }
-}
-
-@Composable
-fun MoreScreenA() {
-    Column {
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = selectedNavItem.title)
     }
 }
 @Composable

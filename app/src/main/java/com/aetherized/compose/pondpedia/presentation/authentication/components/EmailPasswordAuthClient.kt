@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.presentation.authentication.sign_in
+package com.aetherized.compose.pondpedia.presentation.authentication.components
 
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -16,7 +16,8 @@ class EmailPasswordAuthClient {
                     UserData(
                         userId = uid,
                         username = displayName,
-                        profilePictureUrl = photoUrl?.toString()
+                        pictureUrl = photoUrl?.toString(),
+                        userEmail = email
                     )
                 },
                 errorMessage = null

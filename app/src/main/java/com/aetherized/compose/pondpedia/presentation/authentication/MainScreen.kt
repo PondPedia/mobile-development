@@ -10,10 +10,11 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -28,9 +29,11 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aetherized.compose.pondpedia.R
+import com.aetherized.compose.pondpedia.presentation.ui.theme.PondPediaCustomTheme
 
 
 @Composable
@@ -41,104 +44,132 @@ fun MainScreen(
     Image(
         painter = painterResource(R.drawable.underwater_light_blue),
         contentDescription = "Background Image",
-        contentScale = ContentScale.FillHeight,
+        contentScale = ContentScale.FillBounds,
         modifier = Modifier.fillMaxHeight()
     )
-    Box(
+
+    Column(
         modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth(),
-        contentAlignment = Alignment.Center
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxHeight()
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
         ) {
-            Spacer(modifier = Modifier.height(100.dp))
-
-            Image(
-                painter = painterResource(R.drawable.brush),
-                contentDescription = "Brush",
+            Column(
                 modifier = Modifier
-                    .size(200.dp)
-                    .alpha(0.75f),
-                colorFilter = ColorFilter.tint(Color.White)
-            )
-
-            Spacer(modifier = Modifier.height(100.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start
+                    .fillMaxSize()
+                    .padding(horizontal = 32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
+                Spacer(modifier = Modifier.height(80.dp))
+
+                Image(
+                    painter = painterResource(R.drawable.pondpedia_1),
+                    contentDescription = "Brush",
                     modifier = Modifier
-                ) {
-                    Text(
-                        text = stringResource(R.string.title_welcome_page),
-                        fontSize = 26.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
+                        .size(200.dp)
+                        .alpha(0.75f),
+                    colorFilter = ColorFilter.tint(Color.White)
+                )
 
-                    Text(
-                        text = stringResource(R.string.message_welcome_page),
-                        fontSize = 20.sp,
-                        color = Color.White
-                    )
+                Spacer(modifier = Modifier.height(80.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Column(
+                        modifier = Modifier
+                    ) {
+                        Text(
+                            text = stringResource(R.string.title_welcome_page),
+                            fontSize = 26.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text(
+                            text = stringResource(R.string.message_welcome_page),
+                            fontSize = 20.sp,
+                            color = Color.White
+                        )
+                    }
+                }
+
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Button(
+                        onClick = onSignInClick,
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(R.color.navi),
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text(text = stringResource(id = R.string.signin))
+                    }
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    Button(
+                        onClick = onSignUpClick,
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(R.color.navi),
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text(text = stringResource(id = R.string.signup))
+                    }
+
                 }
             }
-
-
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Button(
-                    onClick = onSignInClick,
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.navi), contentColor = Color.White)
-                ) {
-                    Text(text = stringResource(id = R.string.signin))
-                }
-
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Button(
-                    onClick = onSignUpClick,
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.navi), contentColor = Color.White)
-                ) {
-                    Text(text = stringResource(id = R.string.signup))
-                }
-            }
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Image(
-                painter = painterResource(R.drawable.underwater_bubble), // Replace with your bubble drawable
-                contentDescription = "Bubble",
-                modifier = Modifier
-                    .size(200.dp)
-                    .align(Alignment.CenterHorizontally)
-                    .offset(y = (-75).dp)
-                    .alpha(0.75f)
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = "Copyright", // Replace with your copyright string resource
-                fontSize = 14.sp,
-                color = Color.White
-            )
         }
+        Spacer(modifier = Modifier.weight(1f))
+
+        Image(
+            painter = painterResource(R.drawable.underwater_bubble), // Replace with your bubble drawable
+            contentDescription = "Bubble",
+            modifier = Modifier
+                .size(200.dp)
+                .align(Alignment.CenterHorizontally)
+                .alpha(0.75f)
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Text(
+            text = stringResource(id = R.string.copyright),
+            fontSize = 14.sp,
+            color = Color.White
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainPreview() {
+    PondPediaCustomTheme {
+        MainScreen(
+            onSignInClick = {
+            },
+            onSignUpClick = {
+
+            }
+        )
     }
 }

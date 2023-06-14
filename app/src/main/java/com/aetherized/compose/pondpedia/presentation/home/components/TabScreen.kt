@@ -7,12 +7,15 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
+import com.aetherized.compose.pondpedia.presentation.authentication.components.UserData
 import com.aetherized.compose.pondpedia.presentation.home.create.screens.CreateScreenA
 import com.aetherized.compose.pondpedia.presentation.home.create.screens.CreateScreenB
 import com.aetherized.compose.pondpedia.presentation.home.create.screens.CreateScreenC
@@ -29,11 +32,10 @@ import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScr
 import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenB
 import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenC
 import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenD
-import com.aetherized.compose.pondpedia.presentation.home.updates.screens.UpdatesScreenA
-import com.aetherized.compose.pondpedia.presentation.home.updates.screens.UpdatesScreenB
-import com.aetherized.compose.pondpedia.presentation.home.updates.screens.UpdatesScreenC
-import com.aetherized.compose.pondpedia.presentation.home.updates.screens.UpdatesScreenD
-import com.aetherized.compose.pondpedia.presentation.ui.theme.PondPediaCustomTheme
+import com.aetherized.compose.pondpedia.presentation.home.history.screens.HistoryScreenA
+import com.aetherized.compose.pondpedia.presentation.home.history.screens.HistoryScreenB
+import com.aetherized.compose.pondpedia.presentation.home.history.screens.HistoryScreenC
+import com.aetherized.compose.pondpedia.presentation.home.history.screens.HistoryScreenD
 
 enum class Tab (val title: String) {
     TabA("A"),
@@ -46,10 +48,10 @@ enum class Tab (val title: String) {
     PondsTabC("Gurame"),
     PondsTabD("Mas"),
 
-    UpdatesTabA("Semua"),
-    UpdatesTabB("Kolam"),
-    UpdatesTabC("Pedia"),
-    UpdatesTabD("Lainnya"),
+    HistoryTabA("Semua"),
+    HistoryTabB("Kolam"),
+    HistoryTabC("Pedia"),
+    HistoryTabD("Lainnya"),
 
     CreateTabA("Kolam"),
     CreateTabB("Ikan"),
@@ -68,7 +70,11 @@ enum class Tab (val title: String) {
 }
 
 @Composable
-fun TabScreen(navItem: BottomNavItem) {
+fun TabScreen(
+    navItem: BottomNavItem,
+    userData: UserData?,
+    onSignOut: () -> Unit
+) {
     var selectedTab by remember { mutableStateOf(Tab.PondsTabA) }
     var tabIndex by remember { mutableStateOf(0) }
     val tabs = when (navItem) {
@@ -80,12 +86,12 @@ fun TabScreen(navItem: BottomNavItem) {
                 Tab.PondsTabD,
             )
         }
-        BottomNavItem.Updates -> {
+        BottomNavItem.History -> {
             listOf(
-                Tab.UpdatesTabA,
-                Tab.UpdatesTabB,
-                Tab.UpdatesTabC,
-                Tab.UpdatesTabD,
+                Tab.HistoryTabA,
+                Tab.HistoryTabB,
+                Tab.HistoryTabC,
+                Tab.HistoryTabD,
             )
         }
         BottomNavItem.Create -> {
@@ -114,16 +120,42 @@ fun TabScreen(navItem: BottomNavItem) {
         }
     }
 
+    LaunchedEffect(navItem) {
+        tabIndex = 0
+        selectedTab = when (navItem) {
+            BottomNavItem.Ponds -> {
+                Tab.PondsTabA
+            }
+
+            BottomNavItem.History -> {
+                Tab.HistoryTabA
+            }
+
+            BottomNavItem.Create -> {
+                Tab.CreateTabA
+            }
+
+            BottomNavItem.Explore -> {
+                Tab.ExploreTabA
+            }
+
+            BottomNavItem.More -> {
+                Tab.MoreTabA
+            }
+        }
+    }
     Column(modifier = Modifier.fillMaxWidth()) {
         TabRow(selectedTabIndex = tabIndex) {
             tabs.forEachIndexed { index, tab ->
                 Tab(
-                    text = { Text(tab.title) },
+                    text = { Text(text = tab.title, fontSize = 12.sp, maxLines = 1) },
                     selected = selectedTab == tab,
                     onClick = {
                         selectedTab = tab
                         tabIndex = index
-                    }
+                    },
+                    selectedContentColor = MaterialTheme.colorScheme.onPrimary,
+                    unselectedContentColor = MaterialTheme.colorScheme.onPrimary,
                 )
             }
         }
@@ -132,10 +164,10 @@ fun TabScreen(navItem: BottomNavItem) {
             Tab.PondsTabB -> PondsScreenB()
             Tab.PondsTabC -> PondsScreenC()
             Tab.PondsTabD -> PondsScreenD()
-            Tab.UpdatesTabA -> UpdatesScreenA()
-            Tab.UpdatesTabB -> UpdatesScreenB()
-            Tab.UpdatesTabC -> UpdatesScreenC()
-            Tab.UpdatesTabD -> UpdatesScreenD()
+            Tab.HistoryTabA -> HistoryScreenA()
+            Tab.HistoryTabB -> HistoryScreenB()
+            Tab.HistoryTabC -> HistoryScreenC()
+            Tab.HistoryTabD -> HistoryScreenD()
             Tab.CreateTabA -> CreateScreenA()
             Tab.CreateTabB -> CreateScreenB()
             Tab.CreateTabC -> CreateScreenC()
@@ -144,7 +176,7 @@ fun TabScreen(navItem: BottomNavItem) {
             Tab.ExploreTabB -> ExploreScreenB()
             Tab.ExploreTabC -> ExploreScreenC()
             Tab.ExploreTabD -> ExploreScreenD()
-            Tab.MoreTabA -> MoreScreenA()
+            Tab.MoreTabA -> MoreScreenA(userData = userData, onSignOut = onSignOut)
             Tab.MoreTabB -> MoreScreenB()
             Tab.MoreTabC -> MoreScreenC()
             Tab.MoreTabD -> MoreScreenD()
@@ -156,40 +188,10 @@ fun TabScreen(navItem: BottomNavItem) {
 @Preview
 @Composable
 fun TabPreview() {
-    PondPediaCustomTheme(darkTheme = true) {
-        TabScreen(navItem = BottomNavItem.Ponds)
-    }
+//    PondPediaCustomTheme {
+//        TabScreen(navItem = BottomNavItem.Ponds)
+//    }
+    TabScreen(navItem = BottomNavItem.Ponds, userData = null, onSignOut = {})
     
 }
-
-//@Preview
-//@Composable
-//fun fakeTabPreview() {
-//    PondPediaCustomTheme(darkTheme = true) {
-//        fakeTab()
-//    }
-//}
-//@Composable
-//fun fakeTab() {
-//    var tabIndex by remember { mutableStateOf(0) }
-//    val tabs = listOf("Tab A", "Tab B", "Tab C")
-//    Column(modifier = Modifier.fillMaxWidth()) {
-//        TabRow(selectedTabIndex = tabIndex, containerColor = MaterialTheme.colorScheme.tertiary) {
-//            tabs.forEachIndexed { index, title ->
-//                Tab(
-//                    text = { Text(title) },
-//                    selected = index == tabIndex,
-//                    onClick = {
-//                        tabIndex = index
-//                    }
-//                )
-//            }
-//        }
-//        when (tabIndex) {
-//            0 -> Unit
-//            1 -> Unit
-//            2 -> Unit
-//        }
-//    }
-//}
 

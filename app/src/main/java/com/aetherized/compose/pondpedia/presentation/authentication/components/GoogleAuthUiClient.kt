@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.presentation.authentication.sign_in
+package com.aetherized.compose.pondpedia.presentation.authentication.components
 
 import android.content.Context
 import android.content.Intent
@@ -43,7 +43,8 @@ class GoogleAuthUiClient(
                     UserData(
                         userId = uid,
                         username = displayName,
-                        profilePictureUrl = photoUrl?.toString()
+                        pictureUrl = photoUrl?.toString(),
+                        userEmail = email
                     )
                 },
                 errorMessage = null
@@ -72,7 +73,8 @@ class GoogleAuthUiClient(
         UserData(
             userId = uid,
             username = displayName,
-            profilePictureUrl = photoUrl?.toString()
+            pictureUrl = photoUrl?.toString(),
+            userEmail = email
         )
     }
 
