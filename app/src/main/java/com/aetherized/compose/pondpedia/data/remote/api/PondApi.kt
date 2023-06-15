@@ -26,4 +26,8 @@ interface PondApi {
 //        @Header("Authorization") user_id: String,
         @Path("pond_id") pond_id: String,
     ): PondLogsResponse
+
+    companion object {
+        const val BASE_URL = "https://pondpediaapi-ismbpqewoa-as.a.run.app/"
+    }
 }
