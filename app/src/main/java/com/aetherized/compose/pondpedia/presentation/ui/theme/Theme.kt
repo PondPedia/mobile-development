@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.ui.theme
+package com.aetherized.compose.pondpedia.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -10,21 +10,27 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Cyan
+import androidx.compose.ui.graphics.Color.Companion.Green
+import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Black,
+    secondary = White,
+    tertiary = Navi,
+    onPrimary = Cyan,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = White,
+    secondary = Black,
+    tertiary = Navi,
+    onPrimary = Cyan,
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -38,7 +44,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun PondPediaTheme(
+fun PondPediaCustomTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
