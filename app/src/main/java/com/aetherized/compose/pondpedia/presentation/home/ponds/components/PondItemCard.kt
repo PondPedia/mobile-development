@@ -1,13 +1,16 @@
 package com.aetherized.compose.pondpedia.presentation.home.ponds.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,81 +30,80 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.aetherized.compose.pondpedia.R
 import com.aetherized.compose.pondpedia.domain.model.pond.Pond
-import com.aetherized.compose.pondpedia.domain.model.pond.dummyPondA
+import com.aetherized.compose.pondpedia.domain.model.pond.getDummyPond
+import com.aetherized.compose.pondpedia.presentation.ui.theme.Black
 
 @Composable
 fun PondItemCard(
     pond: Pond,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier
-            .padding(8.dp),
-    ){
-        Column(
+            .padding(8.dp)
+            .height(380.dp)
+            .width(250.dp),
+    ) {
+        Box(
             modifier = Modifier
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .align(Alignment.CenterHorizontally)
+                .padding(8.dp)
+                .border(1.dp, Black, RoundedCornerShape(4))
+                .padding(4.dp)
         ) {
-            Image(
-                painter = if(!pond.pondImageUrl.isNullOrEmpty()) rememberAsyncImagePainter(model = pond.pondImageUrl) else painterResource(R.drawable.pond_image_1),
-                contentDescription = "Pond Image",
-                contentScale = ContentScale.FillWidth,
+            Column(
                 modifier = Modifier
-                    .width(240.dp)
-                    .height(240.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = pond.pondName,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-                color = MaterialTheme.colorScheme.onBackground,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = pond.pondFish.fishCommonName,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-            Text(
-                text = pond.pondFish.fishScientificName,
-                fontWeight = FontWeight.Light,
-                color = MaterialTheme.colorScheme.onBackground,
-                style = TextStyle(fontStyle = Italic),
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            Row (
-                modifier = Modifier,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ){
-                Column (
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Bottom
+            ) {
+
+                Image(
+                    painter = if (!pond.pondImageUrl.isNullOrEmpty()) rememberAsyncImagePainter(
+                        model = pond.pondImageUrl
+                    ) else painterResource(R.drawable.pond_image_1),
+                    contentDescription = "Pond Image",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .width(200.dp)
+                        .weight(1f)
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = pond.pondName,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = pond.pondFish.fishCommonName,
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                )
+                Text(
+                    text = pond.pondFish.fishScientificName,
+                    fontWeight = FontWeight.Light,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = TextStyle(fontStyle = Italic),
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+
+                Column(
                     modifier = Modifier,
                     horizontalAlignment = Alignment.CenterHorizontally
-                ){
+                ) {
                     Text(
-                        text = "Date Created",
-                        fontWeight = FontWeight.Light,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        text = pond.createdAt,
-                        fontWeight = FontWeight.ExtraLight,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                }
-                Spacer(modifier = Modifier.width(8.dp))
-                Column (
-                    modifier = Modifier,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ){
-                    Text(
-                        text = "Date Updated",
-                        fontWeight = FontWeight.Light,
+                        text = "Last Updated:",
+                        fontWeight = FontWeight.Normal,
                         color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center
                     )
@@ -109,6 +111,8 @@ fun PondItemCard(
                         text = pond.updatedAt,
                         fontWeight = FontWeight.ExtraLight,
                         color = MaterialTheme.colorScheme.onBackground,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1,
                     )
                 }
             }
@@ -119,5 +123,5 @@ fun PondItemCard(
 @Preview
 @Composable
 fun DefaultPreview() {
-    PondItemCard(dummyPondA, Modifier)
+    PondItemCard(getDummyPond(), Modifier)
 }

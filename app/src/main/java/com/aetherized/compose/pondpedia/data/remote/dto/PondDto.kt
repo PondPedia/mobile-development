@@ -32,7 +32,7 @@ data class PondDto (
 
     val updatedAt: String = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(LocalDateTime.now()),
 
-    val pondId: String = UUID.randomUUID().toString(),
+    val pondId: String = "pond-${UUID.randomUUID()}",
 ) {
     fun toPond(): Pond {
         return Pond(

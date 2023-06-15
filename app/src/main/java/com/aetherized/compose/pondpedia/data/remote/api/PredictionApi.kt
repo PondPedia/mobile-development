@@ -1,6 +1,7 @@
 package com.aetherized.compose.pondpedia.data.remote.api
 
 import com.aetherized.compose.pondpedia.data.remote.dto.PondWaterDto
+import com.aetherized.compose.pondpedia.data.remote.dto.PondWaterPredictionParamDto
 import com.aetherized.compose.pondpedia.data.remote.response.GrowthPredictionResponse
 import com.aetherized.compose.pondpedia.data.remote.response.WaterPredictionResponse
 import retrofit2.http.Body
@@ -14,7 +15,6 @@ interface PredictionApi {
 
     @POST("/pondpedia/predict/growth")
     suspend fun getPondGrowthPrediction(
-        @Body pondWater: PondWaterDto,
-        @Body fishWeight: Float,
+        @Body pondWaterPredictionParam: PondWaterPredictionParamDto,
     ): GrowthPredictionResponse
 }

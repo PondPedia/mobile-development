@@ -3,15 +3,15 @@ package com.aetherized.compose.pondpedia.data.remote.dto
 import com.aetherized.compose.pondpedia.domain.model.pond.PondGrowthPrediction
 
 data class PondGrowthPredictionDto(
-    val growthDate: String,
     val growthLength: Float,
-    val growthWeight: Float,
+    val growthFeed: Float,
+    val growthDays: Float,
 ) {
-    fun toPondWater(): PondGrowthPrediction {
+    fun toPondGrowthPrediction(): PondGrowthPrediction {
         return PondGrowthPrediction(
-            growthDate = growthDate,
             growthLength = growthLength,
-            growthWeight = growthWeight
+            growthFeed = growthFeed,
+            growthDays = growthDays
         )
     }
 }

@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PondGrowthPrediction(
-    val growthDate: String? = null,
     val growthLength: Float? = null,
-    val growthWeight: Float? = null,
+    val growthFeed: Float? = null,
+    val growthDays: Float? = null,
 ): Parcelable

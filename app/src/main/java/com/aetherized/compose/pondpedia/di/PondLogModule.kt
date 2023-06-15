@@ -2,7 +2,7 @@ package com.aetherized.compose.pondpedia.di
 
 import android.app.Application
 import androidx.room.Room
-import com.aetherized.compose.pondpedia.data.local.dao.PondLogDao
+import com.aetherized.compose.pondpedia.data.local.Converters
 import com.aetherized.compose.pondpedia.data.local.database.PondDatabase
 import com.aetherized.compose.pondpedia.data.remote.api.PondApi
 import com.aetherized.compose.pondpedia.data.repository.PondLogRepositoryImpl
@@ -31,10 +31,10 @@ object PondLogModule {
     @Provides
     @Singleton
     fun providePondLogRepository(
+        db: PondDatabase,
         api: PondApi,
-        dao: PondLogDao,
     ): PondLogRepository {
-        return PondLogRepositoryImpl(api, dao)
+        return PondLogRepositoryImpl(api, db.pondLogDao)
     }
 
     @Provides
@@ -44,7 +44,7 @@ object PondLogModule {
             app,
             PondDatabase::class.java,
             "pond_database_v1.0"
-        ).addTypeConverter(GsonParser(Gson()))
+        ).addTypeConverter(Converters(GsonParser(Gson())))
             .build()
     }
 
