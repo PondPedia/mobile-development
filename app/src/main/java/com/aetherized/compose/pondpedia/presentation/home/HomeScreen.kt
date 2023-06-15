@@ -71,6 +71,5 @@ fun HomeScreen(
 @Composable
 fun DefaultPreview() {
     PondPediaCustomTheme(dynamicColor = false) {
-        HomeScreen(userData = null, onSignOut = {})
     }
 }

@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -31,10 +30,13 @@ import com.aetherized.compose.pondpedia.presentation.authentication.sign_in.Sign
 import com.aetherized.compose.pondpedia.presentation.authentication.sign_up.EmailPasswordSignUpClient
 import com.aetherized.compose.pondpedia.presentation.authentication.sign_up.SignUpScreen
 import com.aetherized.compose.pondpedia.presentation.home.HomeScreen
+import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondLogViewModel
 import com.aetherized.compose.pondpedia.presentation.ui.theme.PondPediaCustomTheme
 import com.google.android.gms.auth.api.identity.Identity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 @Suppress("UNCHECKED_CAST")
 class MainActivity : ComponentActivity() {
     private val dataStore by lazy { (application as PondPediaApp).pondPediaDataStore }
@@ -50,6 +52,23 @@ class MainActivity : ComponentActivity() {
     private val emailPasswordSignUpClient by lazy {
         EmailPasswordSignUpClient()
     }
+
+    private lateinit var signInViewModel: SignInViewModel
+    private lateinit var pondLogViewModel: PondLogViewModel
+    @Composable
+    fun setupViewModels() {
+        signInViewModel = viewModel(
+            factory = object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    if (modelClass.isAssignableFrom(SignInViewModel::class.java)) {
+                        @Suppress("UNCHECKED_CAST")
+                        return SignInViewModel(emailPasswordAuthClient, emailPasswordSignUpClient, dataStore) as T
+                    }
+                    throw IllegalArgumentException("Unknown ViewModel class")
+                }
+            }
+        )
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -58,20 +77,9 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
+                    setupViewModels()
                     val navController = rememberNavController()
-                    val viewModel = viewModel<SignInViewModel>(
-                        factory = object : ViewModelProvider.Factory {
-                            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                                if (modelClass.isAssignableFrom(SignInViewModel::class.java)) {
-                                    @Suppress("UNCHECKED_CAST")
-                                    return SignInViewModel(emailPasswordAuthClient, emailPasswordSignUpClient, dataStore) as T
-                                }
-                                throw IllegalArgumentException("Unknown ViewModel class")
-                            }
-                        }
-                    )
-
-                    val state by viewModel.state.collectAsStateWithLifecycle()
+                    val state by signInViewModel.state.collectAsStateWithLifecycle()
 
                     NavHost(navController = navController, startDestination = "main") {
                         composable("main") {
@@ -99,7 +107,7 @@ class MainActivity : ComponentActivity() {
                                             val signInResult = googleAuthUiClient.signInWithGoogle(
                                                 intent = result.data ?: return@launch
                                             )
-                                            viewModel.onSignInResult(signInResult)
+                                            signInViewModel.onSignInResult(signInResult)
                                         }
                                     }
                                 }
@@ -116,8 +124,8 @@ class MainActivity : ComponentActivity() {
                                     val userData = googleAuthUiClient.getSignedInUser()
 
                                     navController.navigate("home")
-                                    viewModel.saveLogin(userData)
-                                    viewModel.resetState()
+                                    signInViewModel.saveLogin(userData)
+                                    signInViewModel.resetState()
                                 }
                             }
 
@@ -134,7 +142,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 },
                                 onEmailPasswordSignInClick = { email, password ->
-                                    viewModel.onEmailPasswordSignIn(email, password)
+                                    signInViewModel.onEmailPasswordSignIn(email, password)
                                 },
 
                                 onGuestSignInClick = {
@@ -150,7 +158,7 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("sign_in")
                                 },
                                 onEmailPasswordSignUpClick = { email, password ->
-                                    viewModel.onEmailPasswordSignUp(email, password)
+                                    signInViewModel.onEmailPasswordSignUp(email, password)
                                 }
                             )
                         }
@@ -176,19 +184,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    PondPediaCustomTheme {
-        MainScreen(
-            onSignInClick = {
-            },
-            onSignUpClick = {
-            },
-        )
     }
 }
 
