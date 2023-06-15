@@ -3,7 +3,6 @@ package com.aetherized.compose.pondpedia.presentation.home
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -14,7 +13,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.aetherized.compose.pondpedia.presentation.authentication.components.SignInState
 import com.aetherized.compose.pondpedia.presentation.authentication.components.UserData
 import com.aetherized.compose.pondpedia.presentation.home.components.BottomNavItem
 import com.aetherized.compose.pondpedia.presentation.home.components.BottomNavigationBar
@@ -72,5 +70,7 @@ fun HomeScreen(
 @Preview
 @Composable
 fun DefaultPreview() {
-    HomeScreen(userData = null, onSignOut = {})
+    PondPediaCustomTheme(dynamicColor = false) {
+        HomeScreen(userData = null, onSignOut = {})
+    }
 }

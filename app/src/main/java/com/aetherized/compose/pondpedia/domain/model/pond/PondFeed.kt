@@ -5,11 +5,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PondFeed(
-    val name: String = "Default",
+    val feedName: String = "Default",
     val feedPercentage: Float = 7f,
-    val proteinPercentage: Float = 42f,
-    val lipidPercentage: Float = 25f,
-    val carbohydratePercentage: Float = 20f,
-    val othersPercentage: Float = 13f,
-    val feedingFrequencyDaily: Int = 2,
+    val feedProteinPercentage: Float = 42f,
+    val feedLipidPercentage: Float = 25f,
+    val feedCarbohydratePercentage: Float = 20f,
+    val feedOthersPercentage: Float = 13f,
+    val feedFrequencyDaily: Int = 2,
 ) : Parcelable
