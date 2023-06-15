@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.presentationui.theme
+package com.aetherized.compose.pondpedia.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

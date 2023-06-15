@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.presentationui.theme
+package com.aetherized.compose.pondpedia.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
