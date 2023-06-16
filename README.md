@@ -26,4 +26,4 @@ git clone https://github.com/pondpedia/mobile-development.git
 4. Submit a pull request.
 
 ## Credits
-Aetherized Git Deck was developed by Dimas Humayun Danu Dahlan as a project to get a hands-on experience in Android Development.
+PondPedia was developed by CS23-PS1 as a capstone project 
