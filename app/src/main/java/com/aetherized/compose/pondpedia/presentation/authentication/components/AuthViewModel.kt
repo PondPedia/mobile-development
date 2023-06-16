@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aetherized.compose.pondpedia.core.PondPediaDataStore
 import com.aetherized.compose.pondpedia.presentation.authentication.sign_up.EmailPasswordSignUpClient
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -12,13 +11,13 @@ import kotlinx.coroutines.launch
 
 
 
-class SignInViewModel(
+class AuthViewModel(
     private val emailPasswordAuthClient: EmailPasswordAuthClient,
     private val emailPasswordSignUpClient: EmailPasswordSignUpClient,
     private val dataStore:PondPediaDataStore
 ): ViewModel() {
 
-    private val _state = MutableStateFlow(SignInState())
+    private val _state = MutableStateFlow(AuthState())
     val state = _state.asStateFlow()
 
     fun onSignInResult(result: SignInResult) {
@@ -55,7 +54,7 @@ class SignInViewModel(
     }
 
     fun resetState() {
-        _state.update { SignInState() }
+        _state.update { AuthState() }
     }
 
     fun saveLogin(userData: UserData?) {

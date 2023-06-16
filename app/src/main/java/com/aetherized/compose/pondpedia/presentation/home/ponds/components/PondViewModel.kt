@@ -5,8 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aetherized.compose.pondpedia.core.util.Resource
+import com.aetherized.compose.pondpedia.domain.model.pond.Pond
+import com.aetherized.compose.pondpedia.domain.model.pond.getDummyPond
 import com.aetherized.compose.pondpedia.domain.use_case.GetPondLogById
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
@@ -15,17 +20,27 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PondLogViewModel @Inject constructor(
+class PondViewModel @Inject constructor(
     private val getPondLog: GetPondLogById
 ) : ViewModel() {
-    private val _state = mutableStateOf(PondsState())
-    val state: State<PondsState> = _state
+    private val _pondId = mutableStateOf("")
+    val pondId: State<String> = _pondId
+    private val _state = mutableStateOf(PondState())
+    val state: State<PondState> = _state
 
     private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    fun onLoadPonds() {
-        viewModelScope.launch {
+    private var loadPondLogJob: Job? = null
+
+
+    var pondData: Pond = getDummyPond()
+
+    fun onLoadPonds(pid: String) {
+        _pondId.value = pid
+        loadPondLogJob?.cancel()
+        loadPondLogJob = viewModelScope.launch(Dispatchers.IO) {
+            delay(100L)
             getPondLog("pond")
                 .onEach { result ->
                     when(result) {
@@ -54,7 +69,6 @@ class PondLogViewModel @Inject constructor(
                 }.launchIn(this)
         }
     }
-
     sealed class UIEvent {
         data class ShowSnackBar(val message: String): UIEvent()
     }

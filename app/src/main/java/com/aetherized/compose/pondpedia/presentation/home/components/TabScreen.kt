@@ -32,6 +32,8 @@ import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScree
 import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenB
 import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenC
 import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenD
+import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondState
+import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondViewModel
 import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenA
 import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenB
 import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenC
@@ -73,6 +75,8 @@ enum class Tab (val title: String) {
 fun TabScreen(
     navItem: BottomNavItem,
     userData: UserData?,
+    pondState: PondState,
+    pondViewModel: PondViewModel,
     onSignOut: () -> Unit
 ) {
     var selectedTab by remember { mutableStateOf(Tab.PondsTabA) }
@@ -160,7 +164,7 @@ fun TabScreen(
             }
         }
         when (selectedTab) {
-            Tab.PondsTabA -> PondsScreenA()
+            Tab.PondsTabA -> PondsScreenA(pondState = pondState, pondViewModel = pondViewModel)
             Tab.PondsTabB -> PondsScreenB()
             Tab.PondsTabC -> PondsScreenC()
             Tab.PondsTabD -> PondsScreenD()
@@ -168,10 +172,10 @@ fun TabScreen(
             Tab.HistoryTabB -> HistoryScreenB()
             Tab.HistoryTabC -> HistoryScreenC()
             Tab.HistoryTabD -> HistoryScreenD()
-            Tab.CreateTabA -> CreateScreenA()
-            Tab.CreateTabB -> CreateScreenB()
-            Tab.CreateTabC -> CreateScreenC()
-            Tab.CreateTabD -> CreateScreenD()
+            Tab.CreateTabA -> CreateScreenA(pondViewModel)
+            Tab.CreateTabB -> CreateScreenB(pondViewModel)
+            Tab.CreateTabC -> CreateScreenC(pondViewModel)
+            Tab.CreateTabD -> CreateScreenD(pondViewModel)
             Tab.ExploreTabA -> ExploreScreenA()
             Tab.ExploreTabB -> ExploreScreenB()
             Tab.ExploreTabC -> ExploreScreenC()

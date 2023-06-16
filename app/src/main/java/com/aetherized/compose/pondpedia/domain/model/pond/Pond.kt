@@ -8,13 +8,13 @@ import java.util.UUID
 
 @Parcelize
 data class Pond(
-    val pondName: String,
+    var pondName: String,
 
-    val pondLength: Float,
+    var pondLength: Float,
 
-    val pondWidth: Float,
+    var pondWidth: Float,
 
-    val pondDepth: Float,
+    var pondDepth: Float,
 
     val pondImageUrl: String? = null,
 

@@ -5,10 +5,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PondWater(
-    val temperature: Float,
-    val turbidity: Float,
-    val dissolvedOxygen: Float,
-    val pH: Float,
-    val ammonia: Float,
-    val nitrate: Float,
+    var temperature: Float,
+    var turbidity: Float,
+    var dissolvedOxygen: Float,
+    var pH: Float,
+    var ammonia: Float,
+    var nitrate: Float,
 ): Parcelable
