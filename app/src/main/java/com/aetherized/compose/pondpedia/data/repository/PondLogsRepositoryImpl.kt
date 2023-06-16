@@ -1,8 +1,10 @@
 package com.aetherized.compose.pondpedia.data.repository
 
+import android.util.Log
 import com.aetherized.compose.pondpedia.core.util.Resource
 import com.aetherized.compose.pondpedia.data.local.dao.PondLogDao
 import com.aetherized.compose.pondpedia.data.remote.api.PondApi
+import com.aetherized.compose.pondpedia.domain.model.pond.Pond
 import com.aetherized.compose.pondpedia.domain.model.pond.PondLog
 import com.aetherized.compose.pondpedia.domain.repository.PondLogRepository
 import kotlinx.coroutines.flow.Flow
@@ -62,5 +64,40 @@ class PondLogRepositoryImpl(
         }
 
         emit(Resource.Success(pondLogs))
+    }
+
+    override suspend fun addLocalPondLog(userId: String?, pond: Pond) {
+
+        val pondLog = when(userId?.isEmpty()) {
+            true -> {
+                PondLog(
+                    pondData = listOf(pond),
+                    pondId = pond.pondId
+                )
+
+            }
+            false -> {
+                PondLog(
+                    userId = userId,
+                    pondData = listOf(pond),
+                    pondId = pond.pondId
+                )
+            }
+
+            null -> {
+                PondLog(
+                    pondData = listOf(pond),
+                    pondId = pond.pondId
+                )
+            }
+        }
+        try {
+            dao.insertPondLog(pondLog.toPondLogEntity())
+        } catch (e: HttpException) {
+            Log.d("PondLogRepositoryImpl", e.toString())
+        } catch (e: IOException) {
+            Log.d("PondLogRepositoryImpl", e.toString())
+        }
+
     }
 }

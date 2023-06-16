@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.aetherized.compose.pondpedia.presentation.authentication.components.UserData
 import com.aetherized.compose.pondpedia.presentation.home.create.screens.CreateScreenA
 import com.aetherized.compose.pondpedia.presentation.home.create.screens.CreateScreenB
@@ -63,7 +64,7 @@ enum class Tab (val title: String) {
     ExploreTabA("Ikan"),
     ExploreTabB("Pakan"),
     ExploreTabC("Penyakit"),
-    ExploreTabD("Air"),
+    ExploreTabD("Ringkasan"),
 
     MoreTabA("Profil"),
     MoreTabB("Pengaturan"),
@@ -77,7 +78,10 @@ fun TabScreen(
     userData: UserData?,
     pondState: PondState,
     pondViewModel: PondViewModel,
-    onSignOut: () -> Unit
+    navController: NavHostController,
+    onSignOut: () -> Unit,
+    onReturnHome: () -> Unit,
+    onCreatePond: () -> Unit,
 ) {
     var selectedTab by remember { mutableStateOf(Tab.PondsTabA) }
     var tabIndex by remember { mutableStateOf(0) }
@@ -172,10 +176,10 @@ fun TabScreen(
             Tab.HistoryTabB -> HistoryScreenB()
             Tab.HistoryTabC -> HistoryScreenC()
             Tab.HistoryTabD -> HistoryScreenD()
-            Tab.CreateTabA -> CreateScreenA(pondViewModel)
-            Tab.CreateTabB -> CreateScreenB(pondViewModel)
-            Tab.CreateTabC -> CreateScreenC(pondViewModel)
-            Tab.CreateTabD -> CreateScreenD(pondViewModel)
+            Tab.CreateTabA -> CreateScreenA(pondViewModel, navController, onCreatePond)
+            Tab.CreateTabB -> CreateScreenB(pondViewModel, navController, onCreatePond)
+            Tab.CreateTabC -> CreateScreenC(pondViewModel, navController, onCreatePond)
+            Tab.CreateTabD -> CreateScreenD(pondViewModel, navController, onCreatePond)
             Tab.ExploreTabA -> ExploreScreenA()
             Tab.ExploreTabB -> ExploreScreenB()
             Tab.ExploreTabC -> ExploreScreenC()

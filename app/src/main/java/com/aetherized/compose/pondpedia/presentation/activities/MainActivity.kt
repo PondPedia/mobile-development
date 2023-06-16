@@ -185,6 +185,7 @@ class MainActivity : ComponentActivity() {
                     pondState = pondState,
                     scaffoldState = scaffoldState,
                     pondViewModel = pondViewModel,
+                    navController = navController,
                     onSignOut = {
                         lifecycleScope.launch {
                             googleAuthUiClient.signOut()
@@ -196,7 +197,25 @@ class MainActivity : ComponentActivity() {
 
                             navController.popBackStack()
                         }
-                    }
+                    },
+                    onReturnHome = {
+                        Toast.makeText(
+                            applicationContext,
+                            "Returning Home",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        navController.popBackStack()
+                        navController.navigate("home")
+                    },
+                    onCreatePond = {
+                        Toast.makeText(
+                            applicationContext,
+                            "Pond Created",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        navController.popBackStack()
+                        navController.navigate("home")
+                    },
                 )
             }
         }

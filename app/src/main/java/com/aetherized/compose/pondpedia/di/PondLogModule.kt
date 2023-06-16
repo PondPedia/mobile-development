@@ -8,6 +8,7 @@ import com.aetherized.compose.pondpedia.data.remote.api.PondApi
 import com.aetherized.compose.pondpedia.data.repository.PondLogRepositoryImpl
 import com.aetherized.compose.pondpedia.data.util.GsonParser
 import com.aetherized.compose.pondpedia.domain.repository.PondLogRepository
+import com.aetherized.compose.pondpedia.domain.use_case.AddPondLog
 import com.aetherized.compose.pondpedia.domain.use_case.GetPondLogById
 import com.google.gson.Gson
 import dagger.Module
@@ -27,6 +28,11 @@ object PondLogModule {
     fun provideGetPondLogUseCase(repository: PondLogRepository): GetPondLogById {
         return GetPondLogById(repository)
     }
+    @Provides
+    @Singleton
+    fun provideAddPondLogUseCase(repository: PondLogRepository): AddPondLog {
+        return AddPondLog(repository)
+    }
 
     @Provides
     @Singleton
@@ -43,7 +49,7 @@ object PondLogModule {
         return Room.databaseBuilder(
             app,
             PondDatabase::class.java,
-            "pond_database_v1.0"
+            "pond_database_v1.1"
         ).addTypeConverter(Converters(GsonParser(Gson())))
             .build()
     }

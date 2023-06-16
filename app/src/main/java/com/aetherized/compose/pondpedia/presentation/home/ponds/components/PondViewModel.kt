@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.aetherized.compose.pondpedia.core.util.Resource
 import com.aetherized.compose.pondpedia.domain.model.pond.Pond
 import com.aetherized.compose.pondpedia.domain.model.pond.getDummyPond
+import com.aetherized.compose.pondpedia.domain.use_case.AddPondLog
 import com.aetherized.compose.pondpedia.domain.use_case.GetPondLogById
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,11 +18,13 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class PondViewModel @Inject constructor(
-    private val getPondLog: GetPondLogById
+    private val getPondLog: GetPondLogById,
+    private val addPondLog: AddPondLog
 ) : ViewModel() {
     private val _pondId = mutableStateOf("")
     val pondId: State<String> = _pondId
@@ -68,6 +71,21 @@ class PondViewModel @Inject constructor(
                     }
                 }.launchIn(this)
         }
+    }
+
+    fun onAddPondToDatabase(userId: String?, pond: Pond) {
+        viewModelScope.launch(Dispatchers.IO) {
+            delay(100L)
+            if (userId != null) {
+                addPondLog(userId, pond)
+            } else {
+                addPondLog(getLocalUserId(), pond)
+            }
+        }
+    }
+
+    fun getLocalUserId(): String {
+        return "local-${UUID.randomUUID()}"
     }
     sealed class UIEvent {
         data class ShowSnackBar(val message: String): UIEvent()

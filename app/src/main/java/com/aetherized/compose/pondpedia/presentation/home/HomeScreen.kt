@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import com.aetherized.compose.pondpedia.presentation.authentication.components.UserData
 import com.aetherized.compose.pondpedia.presentation.home.components.BottomNavItem
 import com.aetherized.compose.pondpedia.presentation.home.components.BottomNavigationBar
@@ -42,7 +43,10 @@ fun HomeScreen(
     pondState: PondState,
     scaffoldState: ScaffoldState,
     pondViewModel: PondViewModel,
-    onSignOut: () -> Unit
+    navController: NavHostController,
+    onSignOut: () -> Unit,
+    onReturnHome: () -> Unit,
+    onCreatePond: () -> Unit,
 ) {
     PondPediaCustomTheme(darkTheme = true) {
         LaunchedEffect(key1 = true) {
@@ -89,7 +93,10 @@ fun HomeScreen(
                     userData = userData,
                     pondState= pondState,
                     pondViewModel = pondViewModel,
-                    onSignOut = onSignOut
+                    navController = navController,
+                    onSignOut = onSignOut,
+                    onReturnHome = onReturnHome,
+                    onCreatePond = onCreatePond,
                 )
             }
         }

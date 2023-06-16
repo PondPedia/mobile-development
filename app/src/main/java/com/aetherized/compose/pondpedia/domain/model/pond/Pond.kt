@@ -65,7 +65,7 @@ fun getDummyPond() : Pond {
         pondGrowthPrediction = PondGrowthPrediction(),
         createdAt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(LocalDateTime.now()),
         updatedAt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(LocalDateTime.now()),
-        pondId = UUID.randomUUID().toString(),
+        pondId = "pond-${UUID.randomUUID()}",
     )
 }
 fun getDummyPondList(size: Int): List<Pond> {

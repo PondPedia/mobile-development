@@ -12,7 +12,7 @@ import com.aetherized.compose.pondpedia.domain.model.pond.PondLog
 data class PondLogEntity(
     @PrimaryKey
     @ColumnInfo(name = "log_id")
-    val logId: Int,
+    val logId: Int? = null,
 
     @ColumnInfo(name = "user_id")
     val userId: String?,
