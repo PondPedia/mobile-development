@@ -24,7 +24,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,13 +45,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aetherized.compose.pondpedia.R
-import com.aetherized.compose.pondpedia.presentation.authentication.components.SignInState
+import com.aetherized.compose.pondpedia.presentation.authentication.components.AuthState
 import com.aetherized.compose.pondpedia.presentation.ui.theme.PondPediaCustomTheme
 import com.aetherized.compose.pondpedia.presentation.ui.theme.White
 
 @Composable
 fun SignInScreen(
-    state: SignInState,
+    state: AuthState,
     onGoogleSignInClick: () -> Unit,
     onEmailPasswordSignInClick: (String, String) -> Unit,
     onGuestSignInClick: () -> Unit

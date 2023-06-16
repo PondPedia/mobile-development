@@ -5,11 +5,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PondFish(
-    val fId: Int,
-    val name: String? = "African Catfish",
-    val scientificName: String? = "Clarias gariepinus",
-    val amount: Float? = null,
-    val targetWeight: Float? = null,
-    val currentWeight: Float? = null,
-    val currentLength: Float? = null,
+    var fishId: String = "fish-id",
+    var fishCommonName: String = "African Catfish",
+    var fishScientificName: String = "Clarias gariepinus",
+    val fishAmount: Int,
+    var fishTargetWeight: Float,
+    var fishCurrentWeight: Float,
+    var fishCurrentLength: Float,
 ) : Parcelable

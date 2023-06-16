@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.aetherized.compose.pondpedia.presentation.authentication.components.UserData
 import com.aetherized.compose.pondpedia.presentation.home.create.screens.CreateScreenA
 import com.aetherized.compose.pondpedia.presentation.home.create.screens.CreateScreenB
@@ -24,18 +25,20 @@ import com.aetherized.compose.pondpedia.presentation.home.explore.screens.Explor
 import com.aetherized.compose.pondpedia.presentation.home.explore.screens.ExploreScreenB
 import com.aetherized.compose.pondpedia.presentation.home.explore.screens.ExploreScreenC
 import com.aetherized.compose.pondpedia.presentation.home.explore.screens.ExploreScreenD
-import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenA
-import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenB
-import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenC
-import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenD
-import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenA
-import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenB
-import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenC
-import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenD
 import com.aetherized.compose.pondpedia.presentation.home.history.screens.HistoryScreenA
 import com.aetherized.compose.pondpedia.presentation.home.history.screens.HistoryScreenB
 import com.aetherized.compose.pondpedia.presentation.home.history.screens.HistoryScreenC
 import com.aetherized.compose.pondpedia.presentation.home.history.screens.HistoryScreenD
+import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenA
+import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenB
+import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenC
+import com.aetherized.compose.pondpedia.presentation.home.more.screens.MoreScreenD
+import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondState
+import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondViewModel
+import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenA
+import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenB
+import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenC
+import com.aetherized.compose.pondpedia.presentation.home.ponds.screens.PondsScreenD
 
 enum class Tab (val title: String) {
     TabA("A"),
@@ -61,7 +64,7 @@ enum class Tab (val title: String) {
     ExploreTabA("Ikan"),
     ExploreTabB("Pakan"),
     ExploreTabC("Penyakit"),
-    ExploreTabD("Air"),
+    ExploreTabD("Ringkasan"),
 
     MoreTabA("Profil"),
     MoreTabB("Pengaturan"),
@@ -73,7 +76,12 @@ enum class Tab (val title: String) {
 fun TabScreen(
     navItem: BottomNavItem,
     userData: UserData?,
-    onSignOut: () -> Unit
+    pondState: PondState,
+    pondViewModel: PondViewModel,
+    navController: NavHostController,
+    onSignOut: () -> Unit,
+    onReturnHome: () -> Unit,
+    onCreatePond: () -> Unit,
 ) {
     var selectedTab by remember { mutableStateOf(Tab.PondsTabA) }
     var tabIndex by remember { mutableStateOf(0) }
@@ -160,7 +168,7 @@ fun TabScreen(
             }
         }
         when (selectedTab) {
-            Tab.PondsTabA -> PondsScreenA()
+            Tab.PondsTabA -> PondsScreenA(pondState = pondState, pondViewModel = pondViewModel)
             Tab.PondsTabB -> PondsScreenB()
             Tab.PondsTabC -> PondsScreenC()
             Tab.PondsTabD -> PondsScreenD()
@@ -168,10 +176,10 @@ fun TabScreen(
             Tab.HistoryTabB -> HistoryScreenB()
             Tab.HistoryTabC -> HistoryScreenC()
             Tab.HistoryTabD -> HistoryScreenD()
-            Tab.CreateTabA -> CreateScreenA()
-            Tab.CreateTabB -> CreateScreenB()
-            Tab.CreateTabC -> CreateScreenC()
-            Tab.CreateTabD -> CreateScreenD()
+            Tab.CreateTabA -> CreateScreenA(pondViewModel, navController, onCreatePond)
+            Tab.CreateTabB -> CreateScreenB(pondViewModel, navController, onCreatePond)
+            Tab.CreateTabC -> CreateScreenC(pondViewModel, navController, onCreatePond)
+            Tab.CreateTabD -> CreateScreenD(pondViewModel, navController, onCreatePond)
             Tab.ExploreTabA -> ExploreScreenA()
             Tab.ExploreTabB -> ExploreScreenB()
             Tab.ExploreTabC -> ExploreScreenC()
@@ -191,7 +199,7 @@ fun TabPreview() {
 //    PondPediaCustomTheme {
 //        TabScreen(navItem = BottomNavItem.Ponds)
 //    }
-    TabScreen(navItem = BottomNavItem.Ponds, userData = null, onSignOut = {})
+//    TabScreen(navItem = BottomNavItem.Ponds, userData = null, onSignOut = {})
     
 }
 

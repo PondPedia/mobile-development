@@ -41,13 +41,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aetherized.compose.pondpedia.R
-import com.aetherized.compose.pondpedia.presentation.authentication.components.SignInState
+import com.aetherized.compose.pondpedia.presentation.authentication.components.AuthState
 import com.aetherized.compose.pondpedia.presentation.ui.theme.PondPediaCustomTheme
 import com.aetherized.compose.pondpedia.presentation.ui.theme.White
 
 @Composable
 fun SignUpScreen(
-    state: SignInState,
+    state: AuthState,
     onEmailPasswordSignInClick: () -> Unit,
     onEmailPasswordSignUpClick: (String, String) -> Unit
 ) {

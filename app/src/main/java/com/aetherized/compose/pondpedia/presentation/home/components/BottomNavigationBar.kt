@@ -1,15 +1,11 @@
 package com.aetherized.compose.pondpedia.presentation.home.components
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Analytics
+import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.RotateRight
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -29,7 +25,6 @@ fun BottomNavigationBar(
     selectedItem: BottomNavItem,
     onItemSelected: (BottomNavItem) -> Unit
 ) {
-    val selectedIndex = remember { mutableSetOf(items.indexOf(selectedItem)) }
     NavigationBar {
         items.forEach { item ->
             NavigationBarItem(

@@ -1,52 +1,52 @@
 package com.aetherized.compose.pondpedia.presentation.home.ponds.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.aetherized.compose.pondpedia.presentation.home.components.BottomNavItem
+import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondItemCard
+import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondState
+import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondViewModel
 import com.aetherized.compose.pondpedia.presentation.ui.theme.PondPediaCustomTheme
-
-private val selectedNavItem = BottomNavItem.Ponds
 
 @Preview
 @Composable
 fun PondScreenPreview() {
     PondPediaCustomTheme(darkTheme = true) {
-        PondsScreenA()
+//        PondsScreenA()
     }
 }
 @Composable
-fun PondsScreenA() {
-    Column {
-        Text(text = selectedNavItem.title)
-    }
+fun PondsScreenA(
+    pondState: PondState,
+    pondViewModel: PondViewModel
+) {
+
+    pondViewModel.onLoadPonds("pond")
+    val horizontalGridSize by remember { mutableStateOf(2) }
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(horizontalGridSize),
+        content = {
+            val pondLogList = pondState.pondLogItems
+            items(pondLogList.size) {
+                PondItemCard(
+                    pond = pondLogList[it].pondData.last()
+                )
+            }
+        })
 }
 
 @Composable
 fun PondsScreenB() {
-    Column {
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = selectedNavItem.title)
-    }
 }
 
 @Composable
 fun PondsScreenC() {
-    Column {
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = selectedNavItem.title)
-    }
 }
 
 @Composable
 fun PondsScreenD() {
-    Column {
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = selectedNavItem.title)
-    }
 }

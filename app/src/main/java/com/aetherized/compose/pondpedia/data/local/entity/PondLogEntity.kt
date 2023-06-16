@@ -1,37 +1,33 @@
 package com.aetherized.compose.pondpedia.data.local.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
-import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
-import java.time.Instant
+import com.aetherized.compose.pondpedia.domain.model.pond.Pond
+import com.aetherized.compose.pondpedia.domain.model.pond.PondLog
 
-@Parcelize
 @Entity(
     tableName = "pond_logs",
-    foreignKeys = [
-        ForeignKey(
-            entity = PondEntity::class,
-            parentColumns = ["pId"],
-            childColumns = ["pond_id"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ]
 )
 data class PondLogEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "lId")
-    val lId: Int? = null,
+    @PrimaryKey
+    @ColumnInfo(name = "log_id")
+    val logId: Int? = null,
+
+    @ColumnInfo(name = "user_id")
+    val userId: String?,
 
     @ColumnInfo(name = "pond_id")
-    val pondId: Int,
+    val pondId: String,
 
-    @Embedded(prefix = "new_")
-    val newPond: PondEntity,
-
-    @ColumnInfo(name = "timestamp")
-    val timestamp: String = Instant.now().toString()
-) : Parcelable
+    @ColumnInfo(name = "pond_")
+    val pondData: List<Pond>,
+) {
+    fun toPondLog(): PondLog {
+        return PondLog(
+            userId = userId,
+            pondId = pondId,
+            pondData = pondData ,
+        )
+    }
+}
