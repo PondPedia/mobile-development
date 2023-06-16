@@ -64,7 +64,7 @@ enum class Tab (val title: String) {
     ExploreTabA("Ikan"),
     ExploreTabB("Pakan"),
     ExploreTabC("Penyakit"),
-    ExploreTabD("Ringkasan"),
+    ExploreTabD("Perairan"),
 
     MoreTabA("Profil"),
     MoreTabB("Pengaturan"),

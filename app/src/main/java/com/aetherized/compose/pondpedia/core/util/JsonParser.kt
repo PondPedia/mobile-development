@@ -1,4 +1,4 @@
-package com.aetherized.compose.pondpedia.data.util
+package com.aetherized.compose.pondpedia.core.util
 
 import java.lang.reflect.Type
 

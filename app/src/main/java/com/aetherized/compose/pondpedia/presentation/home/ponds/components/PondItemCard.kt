@@ -23,12 +23,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.aetherized.compose.pondpedia.R
 import com.aetherized.compose.pondpedia.domain.model.pond.Pond
@@ -43,7 +40,7 @@ fun PondItemCard(
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .height(380.dp)
+            .height(300.dp)
             .width(250.dp)
             .clickable{
                 pondViewModel.pondData = pond
@@ -101,34 +98,27 @@ fun PondItemCard(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                 )
-                Spacer(modifier = Modifier.height(2.dp))
-
-                Column(
-                    modifier = Modifier,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Last Updated:",
-                        fontWeight = FontWeight.Normal,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        text = pond.updatedAt,
-                        fontWeight = FontWeight.ExtraLight,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1,
-                    )
-                }
+//                Spacer(modifier = Modifier.height(2.dp))
+//
+//                Column(
+//                    modifier = Modifier,
+//                    horizontalAlignment = Alignment.CenterHorizontally
+//                ) {
+//                    Text(
+//                        text = "Last Updated:",
+//                        fontWeight = FontWeight.Normal,
+//                        color = MaterialTheme.colorScheme.onBackground,
+//                        textAlign = TextAlign.Center
+//                    )
+//                    Text(
+//                        text = pond.updatedAt,
+//                        fontWeight = FontWeight.ExtraLight,
+//                        color = MaterialTheme.colorScheme.onBackground,
+//                        overflow = TextOverflow.Ellipsis,
+//                        maxLines = 1,
+//                    )
+//                }
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    val navController = rememberNavController()
-//    PondItemCard(getDummyPond(), pondStates = pondState,)
 }

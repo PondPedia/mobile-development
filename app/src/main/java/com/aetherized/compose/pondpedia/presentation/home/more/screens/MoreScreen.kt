@@ -1,5 +1,6 @@
 package com.aetherized.compose.pondpedia.presentation.home.more.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -122,6 +123,7 @@ fun MoreScreenB() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable{}
         ) {
             Column(
                 modifier = Modifier
@@ -143,6 +145,7 @@ fun MoreScreenB() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable{}
         ) {
             Column(
                 modifier = Modifier
@@ -164,6 +167,7 @@ fun MoreScreenB() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable{}
         ) {
             Column(
                 modifier = Modifier
@@ -185,6 +189,7 @@ fun MoreScreenB() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable{}
         ) {
             Column(
                 modifier = Modifier
@@ -206,6 +211,7 @@ fun MoreScreenB() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable{}
         ) {
             Column(
                 modifier = Modifier
@@ -227,6 +233,7 @@ fun MoreScreenB() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable{}
         ) {
             Column(
                 modifier = Modifier
@@ -250,14 +257,8 @@ fun MoreScreenB() {
 
 @Composable
 fun MoreScreenC() {
-    Column {
-        Spacer(modifier = Modifier.height(8.dp))
-    }
 }
 
 @Composable
 fun MoreScreenD() {
-    Column {
-        Spacer(modifier = Modifier.height(8.dp))
-    }
 }

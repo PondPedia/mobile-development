@@ -10,6 +10,15 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PondApi {
+    @POST("/register")
+    suspend fun register(
+        @Body requestBody: Map<String, String>
+    ): BaseResponse
+    @POST("/login")
+    suspend fun login(
+        @Body requestBody: Map<String, String>
+    ): BaseResponse
+
     @POST("/pondpedia/ponds/{pond_id}/logs")
     suspend fun insertPondLogs(
 //        @Header("Authorization") user_id: String,

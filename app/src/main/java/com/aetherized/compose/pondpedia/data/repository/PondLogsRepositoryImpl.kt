@@ -5,7 +5,6 @@ import com.aetherized.compose.pondpedia.core.util.Resource
 import com.aetherized.compose.pondpedia.data.local.dao.PondLogDao
 import com.aetherized.compose.pondpedia.data.remote.api.PondApi
 import com.aetherized.compose.pondpedia.data.remote.api.PredictionApi
-import com.aetherized.compose.pondpedia.data.remote.dto.PondWaterDto
 import com.aetherized.compose.pondpedia.domain.model.pond.Pond
 import com.aetherized.compose.pondpedia.domain.model.pond.PondLog
 import com.aetherized.compose.pondpedia.domain.repository.PondLogRepository
@@ -20,10 +19,33 @@ class PondLogRepositoryImpl(
     private val dao: PondLogDao
 ): PondLogRepository {
 
-    override fun getWaterPrediction(pondWaterDto: PondWaterDto): Flow<Resource<List<PondLog>>> {
-//        emit(Resource.Loading())
+    override suspend fun getWaterPrediction(pondId: String): Flow<Resource<List<PondLog>>> {
+
+        val pondLogs = dao.getPondLogByPondId(pondId).map { it.toPondLog() }
+        val pondLog = pondLogs.last()
+        var pond = pondLog.pondData.last()
+        val pondWaterDto = pond.pondWater.toPondWaterDto()
+
+
+        try {
+            val remotePredictionResponse = predictionApi.getPondWaterPrediction(pondWaterDto)
+            Log.d("GetWaterPrediction", remotePredictionResponse.message)
+    //            pond.pondWaterPrediction = remotePredictionResponse.data[0].toPondWater()
+//            pondLog.pondData.()
 //
-//        val waterPredictions = pondApi.
+////            val newPond = Pond(
+////                pondName = ,
+////                pondLength = ,
+////                pondWidth = ,
+////                pondDepth = ,
+////                pondImageUrl = null,
+////                pond
+////            )
+//            dao.insertPondLog()
+        } catch (e: Exception) {
+
+        }
+
         return flow {  }
     }
     override fun getPondLog(pondId: String): Flow<Resource<List<PondLog>>> = flow {

@@ -2,15 +2,16 @@ package com.aetherized.compose.pondpedia.di
 
 import android.app.Application
 import androidx.room.Room
-import com.aetherized.compose.pondpedia.data.local.Converters
+import com.aetherized.compose.pondpedia.core.util.Converters
+import com.aetherized.compose.pondpedia.core.util.GsonParser
 import com.aetherized.compose.pondpedia.data.local.database.PondDatabase
 import com.aetherized.compose.pondpedia.data.remote.api.PondApi
 import com.aetherized.compose.pondpedia.data.remote.api.PredictionApi
 import com.aetherized.compose.pondpedia.data.repository.PondLogRepositoryImpl
-import com.aetherized.compose.pondpedia.data.util.GsonParser
 import com.aetherized.compose.pondpedia.domain.repository.PondLogRepository
 import com.aetherized.compose.pondpedia.domain.use_case.AddPondLog
 import com.aetherized.compose.pondpedia.domain.use_case.GetPondLogById
+import com.aetherized.compose.pondpedia.domain.use_case.GetWaterPrediction
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object PondLogModule {
+    @Provides
+    @Singleton
+    fun provideGetWaterPredictionUseCase(repository: PondLogRepository): GetWaterPrediction {
+        return GetWaterPrediction(repository)
+    }
 
     @Provides
     @Singleton
