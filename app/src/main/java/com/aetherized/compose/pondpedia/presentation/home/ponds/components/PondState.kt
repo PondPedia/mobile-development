@@ -7,5 +7,6 @@ import com.aetherized.compose.pondpedia.domain.model.pond.getDummyPond
 data class PondState (
     val pondLogItems: List<PondLog> = emptyList(),
     val isLoading: Boolean = false,
-    val pondData: Pond = getDummyPond()
+    val pondData: Pond = getDummyPond(),
+    val pondId: String = ""
 )

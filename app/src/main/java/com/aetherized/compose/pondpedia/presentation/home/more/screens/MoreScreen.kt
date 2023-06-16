@@ -4,10 +4,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +29,8 @@ import coil.compose.AsyncImage
 import com.aetherized.compose.pondpedia.R
 import com.aetherized.compose.pondpedia.presentation.authentication.components.UserData
 import com.aetherized.compose.pondpedia.presentation.home.components.BottomNavItem
+import com.aetherized.compose.pondpedia.presentation.ui.theme.Navi
+import com.aetherized.compose.pondpedia.presentation.ui.theme.White
 
 private val selectedNavItem = BottomNavItem.More
 
@@ -60,14 +69,16 @@ fun MoreScreenA(
                 text = userData.username!!,
                 textAlign = TextAlign.Center,
                 fontSize = 24.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = Navi
             )
         } else {
             Text(
                 text = "Guest",
                 textAlign = TextAlign.Center,
                 fontSize = 24.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = Navi
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -76,7 +87,8 @@ fun MoreScreenA(
                 text = userData.userEmail!!,
                 textAlign = TextAlign.Center,
                 fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = Navi
             )
         } else {
 
@@ -84,20 +96,155 @@ fun MoreScreenA(
                 text =  "Guest",
                 textAlign = TextAlign.Center,
                 fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = Navi
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = onSignOut) {
+        Button(
+            modifier = Modifier,
+            colors = ButtonDefaults.buttonColors(containerColor = Navi, contentColor = White),
+            shape = RoundedCornerShape(8.dp),
+            onClick = onSignOut) {
             Text(text = "Sign out")
         }
     }
 }
 @Composable
 fun MoreScreenB() {
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
+    ) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "General", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "App Language, Notifications",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = selectedNavItem.title)
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Appearance", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "Theme, Data & Time Format",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Ponds", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "Category, Prediction",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Explore", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "Information, Images",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Backup and Restore", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "Manual & Automatic Backups",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Security", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "App Lock, Secure Screen, Password",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
@@ -105,7 +252,6 @@ fun MoreScreenB() {
 fun MoreScreenC() {
     Column {
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = selectedNavItem.title)
     }
 }
 
@@ -113,6 +259,5 @@ fun MoreScreenC() {
 fun MoreScreenD() {
     Column {
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = selectedNavItem.title)
     }
 }

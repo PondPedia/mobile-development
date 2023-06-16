@@ -2,6 +2,7 @@ package com.aetherized.compose.pondpedia.presentation.home.ponds.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,22 +28,27 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.aetherized.compose.pondpedia.R
 import com.aetherized.compose.pondpedia.domain.model.pond.Pond
-import com.aetherized.compose.pondpedia.domain.model.pond.getDummyPond
 import com.aetherized.compose.pondpedia.presentation.ui.theme.Black
 
 @Composable
 fun PondItemCard(
     pond: Pond,
-    modifier: Modifier = Modifier
+    pondViewModel: PondViewModel,
+    onClickItem: () -> Unit
 ) {
     Card(
-        modifier = modifier
+        modifier = Modifier
             .padding(8.dp)
             .height(380.dp)
-            .width(250.dp),
+            .width(250.dp)
+            .clickable{
+                pondViewModel.pondData = pond
+                onClickItem()
+            },
     ) {
         Box(
             modifier = Modifier
@@ -123,5 +129,6 @@ fun PondItemCard(
 @Preview
 @Composable
 fun DefaultPreview() {
-    PondItemCard(getDummyPond(), Modifier)
+    val navController = rememberNavController()
+//    PondItemCard(getDummyPond(), pondStates = pondState,)
 }

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.aetherized.compose.pondpedia.data.local.Converters
 import com.aetherized.compose.pondpedia.data.local.database.PondDatabase
 import com.aetherized.compose.pondpedia.data.remote.api.PondApi
+import com.aetherized.compose.pondpedia.data.remote.api.PredictionApi
 import com.aetherized.compose.pondpedia.data.repository.PondLogRepositoryImpl
 import com.aetherized.compose.pondpedia.data.util.GsonParser
 import com.aetherized.compose.pondpedia.domain.repository.PondLogRepository
@@ -38,9 +39,10 @@ object PondLogModule {
     @Singleton
     fun providePondLogRepository(
         db: PondDatabase,
-        api: PondApi,
+        pondApi: PondApi,
+        predictionApi: PredictionApi,
     ): PondLogRepository {
-        return PondLogRepositoryImpl(api, db.pondLogDao)
+        return PondLogRepositoryImpl(predictionApi, pondApi, db.pondLogDao)
     }
 
     @Provides
@@ -62,5 +64,15 @@ object PondLogModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PondApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePredictionApi(): PredictionApi {
+        return Retrofit.Builder()
+            .baseUrl(PredictionApi.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PredictionApi::class.java)
     }
 }

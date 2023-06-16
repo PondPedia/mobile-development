@@ -4,6 +4,8 @@ import android.util.Log
 import com.aetherized.compose.pondpedia.core.util.Resource
 import com.aetherized.compose.pondpedia.data.local.dao.PondLogDao
 import com.aetherized.compose.pondpedia.data.remote.api.PondApi
+import com.aetherized.compose.pondpedia.data.remote.api.PredictionApi
+import com.aetherized.compose.pondpedia.data.remote.dto.PondWaterDto
 import com.aetherized.compose.pondpedia.domain.model.pond.Pond
 import com.aetherized.compose.pondpedia.domain.model.pond.PondLog
 import com.aetherized.compose.pondpedia.domain.repository.PondLogRepository
@@ -13,9 +15,17 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class PondLogRepositoryImpl(
-    private val api: PondApi,
+    private val predictionApi: PredictionApi,
+    private val pondApi: PondApi,
     private val dao: PondLogDao
 ): PondLogRepository {
+
+    override fun getWaterPrediction(pondWaterDto: PondWaterDto): Flow<Resource<List<PondLog>>> {
+//        emit(Resource.Loading())
+//
+//        val waterPredictions = pondApi.
+        return flow {  }
+    }
     override fun getPondLog(pondId: String): Flow<Resource<List<PondLog>>> = flow {
         emit(Resource.Loading())
 
@@ -23,7 +33,7 @@ class PondLogRepositoryImpl(
         emit(Resource.Loading(data = pondLogs))
 
         try {
-            val remotePondLogs =  api.getPondLogsById(pondId)
+            val remotePondLogs =  pondApi.getPondLogsById(pondId)
             dao.deletePondLogs(remotePondLogs.data.map { it.pondId })
             dao.insertPondLogs(remotePondLogs.data.map { it.toPondLogEntity() })
         } catch (e: HttpException) {
@@ -50,7 +60,7 @@ class PondLogRepositoryImpl(
         emit(Resource.Loading(data = pondLogs))
 
         try {
-            val remotePondLogs =  api.insertPondLogs(pondId, pondLogsEntity)
+            val remotePondLogs =  pondApi.insertPondLogs(pondId, pondLogsEntity)
         } catch (e: HttpException) {
             emit(Resource.Error(
                 message = e.toString(),

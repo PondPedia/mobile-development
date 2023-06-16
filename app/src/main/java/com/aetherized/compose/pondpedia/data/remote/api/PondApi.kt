@@ -16,11 +16,14 @@ interface PondApi {
         @Path("pond_id") pond_id: String,
         @Body pondLogs: List<PondLogEntity>
     ): BaseResponse
+
+
     @GET("/pondpedia/ponds")
     suspend fun getPondLogs(
 //        @Header("Authorization") user_id: String,
         @Query("pond_id") size: Int,
     ): PondLogsResponse
+
     @GET("/pondpedia/ponds/{pond_id}")
     suspend fun getPondLogsById(
 //        @Header("Authorization") user_id: String,

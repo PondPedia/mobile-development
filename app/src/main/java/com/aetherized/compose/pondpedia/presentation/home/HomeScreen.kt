@@ -47,8 +47,9 @@ fun HomeScreen(
     onSignOut: () -> Unit,
     onReturnHome: () -> Unit,
     onCreatePond: () -> Unit,
+    onClickItem: () -> Unit
 ) {
-    PondPediaCustomTheme(darkTheme = true) {
+    PondPediaCustomTheme() {
         LaunchedEffect(key1 = true) {
             pondViewModel.eventFlow.collectLatest { event ->
                 when(event) {
@@ -97,6 +98,7 @@ fun HomeScreen(
                     onSignOut = onSignOut,
                     onReturnHome = onReturnHome,
                     onCreatePond = onCreatePond,
+                    onClickItem = onClickItem,
                 )
             }
         }

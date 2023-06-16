@@ -22,9 +22,9 @@ fun PondScreenPreview() {
 @Composable
 fun PondsScreenA(
     pondState: PondState,
-    pondViewModel: PondViewModel
+    pondViewModel: PondViewModel,
+    onClickItem: () -> Unit
 ) {
-
     pondViewModel.onLoadPonds("pond")
     val horizontalGridSize by remember { mutableStateOf(2) }
     LazyVerticalGrid(
@@ -33,7 +33,9 @@ fun PondsScreenA(
             val pondLogList = pondState.pondLogItems
             items(pondLogList.size) {
                 PondItemCard(
-                    pond = pondLogList[it].pondData.last()
+                    pond = pondLogList[it].pondData.last(),
+                    pondViewModel = pondViewModel,
+                    onClickItem = onClickItem
                 )
             }
         })
