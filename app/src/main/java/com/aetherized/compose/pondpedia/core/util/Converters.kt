@@ -1,8 +1,8 @@
-package com.aetherized.compose.pondpedia.data.local
+package com.aetherized.compose.pondpedia.core.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.aetherized.compose.pondpedia.data.util.JsonParser
+import com.aetherized.compose.pondpedia.core.util.JsonParser
 import com.aetherized.compose.pondpedia.domain.model.pond.Pond
 import com.google.gson.reflect.TypeToken
 

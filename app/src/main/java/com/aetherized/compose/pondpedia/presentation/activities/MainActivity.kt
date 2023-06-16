@@ -34,6 +34,7 @@ import com.aetherized.compose.pondpedia.presentation.authentication.components.G
 import com.aetherized.compose.pondpedia.presentation.authentication.sign_in.SignInScreen
 import com.aetherized.compose.pondpedia.presentation.authentication.sign_up.EmailPasswordSignUpClient
 import com.aetherized.compose.pondpedia.presentation.authentication.sign_up.SignUpScreen
+import com.aetherized.compose.pondpedia.presentation.details.screen.DetailsScreen
 import com.aetherized.compose.pondpedia.presentation.home.HomeScreen
 import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondState
 import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondViewModel
@@ -208,14 +209,28 @@ class MainActivity : ComponentActivity() {
                         navController.navigate("home")
                     },
                     onCreatePond = {
-                        Toast.makeText(
-                            applicationContext,
-                            "Pond Created",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        navController.popBackStack()
-                        navController.navigate("home")
+                        lifecycleScope.launch {
+                            Toast.makeText(
+                                applicationContext,
+                                "Pond Created",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            navController.popBackStack()
+                            navController.navigate("home")
+                        }
                     },
+                    onClickItem = {
+                        lifecycleScope.launch {
+                            navController.popBackStack()
+                            navController.navigate("details")
+                        }
+                    }
+                )
+            }
+            composable("details") {
+                DetailsScreen(
+                    pondState = pondState,
+                    pondViewModel = pondViewModel
                 )
             }
         }

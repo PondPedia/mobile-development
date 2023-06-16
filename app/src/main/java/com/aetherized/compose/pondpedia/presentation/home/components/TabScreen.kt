@@ -59,12 +59,12 @@ enum class Tab (val title: String) {
     CreateTabA("Kolam"),
     CreateTabB("Ikan"),
     CreateTabC("Pakan"),
-    CreateTabD("Air"),
+    CreateTabD("Ringkasan"),
 
     ExploreTabA("Ikan"),
     ExploreTabB("Pakan"),
     ExploreTabC("Penyakit"),
-    ExploreTabD("Ringkasan"),
+    ExploreTabD("Perairan"),
 
     MoreTabA("Profil"),
     MoreTabB("Pengaturan"),
@@ -82,6 +82,7 @@ fun TabScreen(
     onSignOut: () -> Unit,
     onReturnHome: () -> Unit,
     onCreatePond: () -> Unit,
+    onClickItem: () -> Unit
 ) {
     var selectedTab by remember { mutableStateOf(Tab.PondsTabA) }
     var tabIndex by remember { mutableStateOf(0) }
@@ -168,7 +169,7 @@ fun TabScreen(
             }
         }
         when (selectedTab) {
-            Tab.PondsTabA -> PondsScreenA(pondState = pondState, pondViewModel = pondViewModel)
+            Tab.PondsTabA -> PondsScreenA(pondState = pondState, pondViewModel = pondViewModel, onClickItem = onClickItem)
             Tab.PondsTabB -> PondsScreenB()
             Tab.PondsTabC -> PondsScreenC()
             Tab.PondsTabD -> PondsScreenD()

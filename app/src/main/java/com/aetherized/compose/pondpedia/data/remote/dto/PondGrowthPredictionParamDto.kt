@@ -1,6 +1,6 @@
 package com.aetherized.compose.pondpedia.data.remote.dto
 
-data class PondWaterPredictionParamDto(
+data class PondGrowthPredictionParamDto(
     val temperature: Float,
     val turbidity: Float,
     val dissolvedOxygen: Float,

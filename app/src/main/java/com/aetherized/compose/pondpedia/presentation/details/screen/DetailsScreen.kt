@@ -1,453 +1,203 @@
-package com.aetherized.compose.pondpedia.presentation.home.create.screens
+package com.aetherized.compose.pondpedia.presentation.details.screen
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
+import com.aetherized.compose.pondpedia.R
+import com.aetherized.compose.pondpedia.domain.model.pond.Pond
+import com.aetherized.compose.pondpedia.presentation.details.components.DetailsTabScreen
+import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondState
 import com.aetherized.compose.pondpedia.presentation.home.ponds.components.PondViewModel
+import com.aetherized.compose.pondpedia.presentation.ui.theme.Black
 import com.aetherized.compose.pondpedia.presentation.ui.theme.Navi
+import com.aetherized.compose.pondpedia.presentation.ui.theme.PondPediaCustomTheme
 import com.aetherized.compose.pondpedia.presentation.ui.theme.White
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateScreenA(
-    pondViewModel: PondViewModel,
-    navController: NavHostController,
-    onCreatePond: () -> Unit,
-) {
-    var pondName by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondName) }
-    var pondLength by rememberSaveable { mutableStateOf(5f) }
-    var pondWidth by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondWidth) }
-    var pontDepth by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondDepth) }
-    var waterTemperature by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondWater.temperature) }
-    var waterTurbidity by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondWater.turbidity) }
-    var waterDissolvedOxygen by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondWater.dissolvedOxygen) }
-    var waterPH by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondWater.pH) }
-    var waterAmmonia by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondWater.ammonia) }
-    var waterNitrate by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondWater.nitrate) }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top,
+fun DetailsScreen(
+    pondState: PondState,
+    pondViewModel: PondViewModel
     ) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = pondName,
-                onValueChange = { pondName = it; pondViewModel.pondData.pondName = it },
-                label = { Text("Nama Kolam") },
-                modifier = Modifier.fillMaxWidth(),
-            )
+    PondPediaCustomTheme {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(text = pondState.pondData.pondName)
+                    },
+                )
+            },
+        ) { innerPadding ->
+            val pond = pondViewModel.pondData
+            Box(
+                Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize()
+            ) {
+                Column {
+                    Box(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)){
+                        PondDetailsCard(pond = pond)
+                    }
+                    Box(modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                    ){
+                        Card(
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .fillMaxWidth()
+                                .fillMaxHeight(),
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .align(Alignment.CenterHorizontally)
+                                    .padding(8.dp)
+                                    .border(1.dp, Black, RoundedCornerShape(4))
+                                    .padding(4.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                DetailsTabScreen(
+                                    pondState = pondState,
+                                    pondViewModel = pondViewModel,
+                                )
+                            }
+                        }
+                    }
+                }
+            }
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = pondLength.toString(),
-                onValueChange = { pondLength = it.toFloat(); pondViewModel.pondData.pondLength = it.toFloat() },
-                label = { Text("Panjang Kolam") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = pondWidth.toString(),
-                onValueChange = { pondWidth = it.toFloat(); pondViewModel.pondData.pondWidth = it.toFloat() },
-                label = { Text("Luas Kolam") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = pontDepth.toString(),
-                onValueChange = { pontDepth = it.toFloat(); pondViewModel.pondData.pondDepth = it.toFloat() },
-                label = { Text("Kedalaman Kolam") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = waterTemperature.toString(),
-                onValueChange = { waterTemperature = it.toFloat(); pondViewModel.pondData.pondWater.temperature = it.toFloat() },
-                label = { Text("Derajat suhu Air") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = waterTurbidity.toString(),
-                onValueChange = { waterTurbidity = it.toFloat(); pondViewModel.pondData.pondWater.turbidity = it.toFloat() },
-                label = { Text("Tingkat kekeruhan air") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = waterDissolvedOxygen.toString(),
-                onValueChange = { waterDissolvedOxygen = it.toFloat() ; pondViewModel.pondData.pondWater.dissolvedOxygen = it.toFloat()},
-                label = { Text("Kadar oksigen terlarut di air") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = waterPH.toString(),
-                onValueChange = { waterPH = it.toFloat(); pondViewModel.pondData.pondWater.pH = it.toFloat() },
-                label = { Text("Kadar pH di air") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = waterAmmonia.toString(),
-                onValueChange = { waterAmmonia = it.toFloat(); pondViewModel.pondData.pondWater.ammonia = it.toFloat() },
-                label = { Text("Kadar ammonia di air") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = waterNitrate.toString(),
-                onValueChange = { waterNitrate = it.toFloat(); pondViewModel.pondData.pondWater.nitrate = it.toFloat() },
-                label = { Text("Kadar Nitrat di air") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        Spacer(modifier = Modifier.height(12.dp))
-    }
-
-}
-@Composable
-fun CreateScreenB(
-    pondViewModel: PondViewModel,
-    navController: NavHostController,
-    onCreatePond: () -> Unit,
-) {
-
-    var fishId by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFish.fishId) }
-    var fishCommonName by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFish.fishCommonName) }
-    var fishScientificName by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFish.fishScientificName) }
-    var fishAmount by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFish.fishAmount) }
-    var fishTargetWeight by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFish.fishTargetWeight) }
-    var fishCurrentWeight by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFish.fishCurrentWeight) }
-    var fishCurrentLength by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFish.fishCurrentLength) }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top,
-
-        ) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth(),
-        ) {
-            TextField(
-                value = fishId,
-                onValueChange = { fishId = it; pondViewModel.pondData.pondFish.fishId = it },
-                label = { Text("Fish ID") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = fishCommonName,
-                onValueChange = {
-                    fishCommonName = it; pondViewModel.pondData.pondFish.fishCommonName = it
-                },
-                label = { Text("Fish common name") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = fishScientificName,
-                onValueChange = {
-                    fishScientificName = it; pondViewModel.pondData.pondFish.fishScientificName = it
-                },
-                label = { Text("Fish scientific name") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = fishAmount.toString(),
-                onValueChange = { fishAmount = it.toInt() },
-                label = { Text("Fish amount") },
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = fishTargetWeight.toString(),
-                onValueChange = {
-                    fishTargetWeight =
-                        it.toFloat(); pondViewModel.pondData.pondFish.fishTargetWeight =
-                    it.toFloat()
-                },
-                label = { Text("Fish target weight") },
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = fishCurrentLength.toString(),
-                onValueChange = {
-                    fishCurrentWeight =
-                        it.toFloat(); pondViewModel.pondData.pondFish.fishCurrentWeight =
-                    it.toFloat()
-                },
-                label = { Text("Fish current weight") },
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = fishCurrentLength.toString(),
-                onValueChange = {
-                    fishCurrentLength =
-                        it.toFloat(); pondViewModel.pondData.pondFish.fishCurrentLength =
-                    it.toFloat()
-                },
-                label = { Text("Fish current length") },
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(12.dp))
     }
 }
 
-
 @Composable
-fun CreateScreenC(
-    pondViewModel: PondViewModel,
-    navController: NavHostController,
-    onCreatePond: () -> Unit,
-) {
-    var feedName by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFeed.feedName) }
-    var feedPercentage by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFeed.feedPercentage) }
-    var feedProteinPercentage by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFeed.feedProteinPercentage) }
-    var feedLipidPercentage by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFeed.feedLipidPercentage) }
-    var feedCarbohydratePercentage by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFeed.feedCarbohydratePercentage) }
-    var feedOthersPercentage by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFeed.feedOthersPercentage) }
-    var feedFrequencyDaily by rememberSaveable { mutableStateOf(pondViewModel.pondData.pondFeed.feedFrequencyDaily) }
-
-    Column(
+fun PondDetailsCard(pond: Pond) {
+    Card(
         modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top,
+            .padding(8.dp)
+            .height(250.dp)
+            .fillMaxWidth(),
     ) {
-        Card(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
+                .align(Alignment.CenterHorizontally)
+                .padding(8.dp)
+                .border(1.dp, Black, RoundedCornerShape(4))
+                .padding(4.dp),
+            contentAlignment = Alignment.Center
         ) {
-            TextField(
-                value = feedName,
-                onValueChange = { feedName = it; pondViewModel.pondData.pondFeed.feedName = it },
-                label = { Text("Nama Pakan") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Bottom
+            ) {
+
+                Image(
+                    painter = if (!pond.pondImageUrl.isNullOrEmpty()) rememberAsyncImagePainter(
+                        model = pond.pondImageUrl
+                    ) else painterResource(R.drawable.pond_image_1),
+                    contentDescription = "Pond Image",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .width(200.dp)
+                        .weight(1f)
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = pond.pondName,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = pond.pondFish.fishCommonName,
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                )
+                Text(
+                    text = pond.pondFish.fishScientificName,
+                    fontWeight = FontWeight.Light,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = TextStyle(fontStyle = FontStyle.Italic),
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+
+                Column(
+                    modifier = Modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Last Updated:",
+                        fontWeight = FontWeight.Normal,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = pond.updatedAt,
+                        fontWeight = FontWeight.ExtraLight,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1,
+                    )
+                }
+            }
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = feedPercentage.toString(),
-                onValueChange = {
-                    feedPercentage = it.toFloat(); pondViewModel.pondData.pondFeed.feedPercentage =
-                    it.toFloat()
-                },
-                label = { Text("Persentase Pakan / Berat Badan") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = feedProteinPercentage.toString(),
-                onValueChange = {
-                    feedProteinPercentage =
-                        it.toFloat(); pondViewModel.pondData.pondFeed.feedProteinPercentage =
-                    it.toFloat()
-                },
-                label = { Text("Persentase Protein pada Pakan") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = feedLipidPercentage.toString(),
-                onValueChange = {
-                    feedLipidPercentage =
-                        it.toFloat(); pondViewModel.pondData.pondFeed.feedLipidPercentage =
-                    it.toFloat()
-                },
-                label = { Text("Persentase Lipid pada Pakan") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = feedCarbohydratePercentage.toString(),
-                onValueChange = {
-                    feedCarbohydratePercentage =
-                        it.toFloat(); pondViewModel.pondData.pondFeed.feedCarbohydratePercentage =
-                    it.toFloat()
-                },
-                label = { Text("Persentase Carbohydrate pada pakan") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = feedOthersPercentage.toString(),
-                onValueChange = {
-                    feedOthersPercentage =
-                        it.toFloat(); pondViewModel.pondData.pondFeed.feedOthersPercentage =
-                    it.toFloat()
-                },
-                label = { Text("Persentase faktor lain pada pakan") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            TextField(
-                value = feedFrequencyDaily.toString(),
-                onValueChange = {
-                    feedFrequencyDaily =
-                        it.toInt(); pondViewModel.pondData.pondFeed.feedFrequencyDaily = it.toInt()
-                },
-                label = { Text("Pemberian pakan dalam sehari") },
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        Spacer(modifier = Modifier.height(12.dp))
     }
 }
 
+
 @Composable
-fun CreateScreenD(
+fun DetailsScreenA (
+    pondState: PondState,
     pondViewModel: PondViewModel,
-    navController: NavHostController,
-    onCreatePond: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -669,6 +419,22 @@ fun CreateScreenD(
                 )
             }
         }
+        Spacer(modifier = Modifier.height(12.dp))
+    }
+
+}
+@Composable
+fun DetailsScreenB(
+    pondState: PondState,
+    pondViewModel: PondViewModel,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
+    ) {
         Spacer(modifier = Modifier.height(8.dp))
         Card(
             modifier = Modifier
@@ -800,6 +566,23 @@ fun CreateScreenD(
                 )
             }
         }
+        Spacer(modifier = Modifier.height(12.dp))
+    }
+}
+
+
+@Composable
+fun DetailsScreenC(
+    pondState: PondState,
+    pondViewModel: PondViewModel,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
+    ) {
         Spacer(modifier = Modifier.height(8.dp))
         Card(
             modifier = Modifier
@@ -964,15 +747,146 @@ fun CreateScreenD(
             }
         }
         Spacer(modifier = Modifier.height(12.dp))
-        Button(
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Navi, contentColor = White),
-            shape = RoundedCornerShape(8.dp),
-            onClick = {
-                pondViewModel.onAddPondToDatabase(userId = pondViewModel.getLocalUserId(), pond = pondViewModel.pondData)
-                onCreatePond()
-        }) {
-            Text(text = "Buat Kolam", modifier = Modifier, fontWeight = FontWeight.Bold, color = White)
+    }
+}
+
+@Composable
+fun DetailsScreenD(
+    pondState: PondState,
+    pondViewModel: PondViewModel,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
+    ) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Prediksi Pertumbuhan dari Ikan", fontWeight = FontWeight.Bold, maxLines = 1)
+                Spacer(modifier = Modifier.height(12.dp))
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Navi, contentColor = White),
+                    shape = RoundedCornerShape(8.dp),
+                    onClick = {
+
+                    }) {
+                    Text(text = "Prediksi Pertumbuhan", modifier = Modifier, fontWeight = FontWeight.Bold, color = White)
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Text(text = "Jumlah hari yang dibutuhkan untuk mencapai target:", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "${pondViewModel.pondData.pondGrowthPrediction?.growthDays ?: "Unavailable"}",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(text = "Jumlah pakan yang dibutuhkan untuk mencapai target::", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "${pondViewModel.pondData.pondGrowthPrediction?.growthFeed ?: "Unavailable"}",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(text = "Panjang dari ikan saat siap dipanen:", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "${pondViewModel.pondData.pondGrowthPrediction?.growthLength ?: "Unavailable"}",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+            }
         }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Prediksi Perubahan dari Kualitas Air", fontWeight = FontWeight.Bold, maxLines = 1)
+                Spacer(modifier = Modifier.height(12.dp))
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Navi, contentColor = White),
+                    shape = RoundedCornerShape(8.dp),
+                    onClick = {
+
+                    }) {
+                    Text(text = "Prediksi Perubahan", modifier = Modifier, fontWeight = FontWeight.Bold, color = White)
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Text(text = " Temperatur Air:", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "${pondViewModel.pondData.pondWaterPrediction?.temperature ?: "Unavailable"}",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(text = " Kekeruhan Air:", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "${pondViewModel.pondData.pondWaterPrediction?.turbidity ?: "Unavailable"}",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(text = " Oksigen Terlarut dalam Air:", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "${pondViewModel.pondData.pondWaterPrediction?.dissolvedOxygen ?: "Unavailable"}",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(text = " Kadar pH dari Air:", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "${pondViewModel.pondData.pondWaterPrediction?.pH ?: "Unavailable"}",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(text = "Ammonia dalam Air:", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "${pondViewModel.pondData.pondWaterPrediction?.ammonia ?: "Unavailable"}",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(text = " Nitrat dalam Air:", fontWeight = FontWeight.SemiBold, maxLines = 1)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "${pondViewModel.pondData.pondWaterPrediction?.nitrate ?: "Unavailable"}",
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }

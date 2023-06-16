@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface PondLogRepository {
 
+    suspend fun getWaterPrediction(pondId: String): Flow<Resource<List<PondLog>>>
+
     fun getPondLog(pondId: String): Flow<Resource<List<PondLog>>>
 
     fun getLocalPondLog(pondId: String): Flow<Resource<List<PondLog>>>

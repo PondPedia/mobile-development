@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class AuthViewModel(
     private val emailPasswordAuthClient: EmailPasswordAuthClient,
     private val emailPasswordSignUpClient: EmailPasswordSignUpClient,
-    private val dataStore:PondPediaDataStore
+    private val dataStore: PondPediaDataStore
 ): ViewModel() {
 
     private val _state = MutableStateFlow(AuthState())

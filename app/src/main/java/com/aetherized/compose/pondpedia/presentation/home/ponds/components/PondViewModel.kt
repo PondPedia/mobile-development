@@ -36,7 +36,6 @@ class PondViewModel @Inject constructor(
 
     private var loadPondLogJob: Job? = null
 
-
     var pondData: Pond = getDummyPond()
 
     fun onLoadPonds(pid: String) {

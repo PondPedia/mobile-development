@@ -24,7 +24,7 @@ data class Pond(
 
     val pondWater: PondWater,
 
-    val pondWaterPrediction: PondWaterPrediction?,
+    var pondWaterPrediction: PondWaterPrediction?,
 
     val pondGrowthPrediction: PondGrowthPrediction?,
 
@@ -38,7 +38,7 @@ data class Pond(
 
 fun getDummyPond() : Pond {
     return Pond(
-        pondName = "Pond Dummy ${(0..9).random()}.${(0..9).random()}.${(0..9).random()}.",
+        pondName = "Pond ${(0..9).random()}.${(0..9).random()}.${(0..9).random()}.",
         pondLength = 5f,
         pondWidth = 5f,
         pondDepth = 2f,
@@ -59,7 +59,7 @@ fun getDummyPond() : Pond {
             dissolvedOxygen = 30f,
             pH = 7f,
             ammonia = 0.5f,
-            nitrate = 0.5f,
+            nitrate = "${(0..1).random()}.${(0..9).random()}".toFloat(),
         ),
         pondWaterPrediction = PondWaterPrediction(),
         pondGrowthPrediction = PondGrowthPrediction(),
